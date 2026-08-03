@@ -5,17 +5,23 @@ Repositório dedicado aos meus estudos práticos da linguagem **Solidity** e des
 Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e lives do canal **queroser.ninja** (Fernando Daciuk).
 
 ---
-
 ## 📸 Registro de Progresso
 
 ### 🧟 Lição 1: Criando a Fábrica de Zumbis
-- **Tópicos:** `pragma solidity` (definição de versão) e declaração do `contract ZombieFactory`.
+- **Tópicos:** 
+  - **Capítulo 2:** `pragma solidity` (definição de versão) e declaração do `contract ZombieFactory`.
+  - **Capítulo 3:** Variáveis de estado (`uint`) e atribuição de valores (`uint dnaDigits = 16;`).
 - **Status:** Em andamento ⏳
 
-| Código no Editor | Capítulo Concluído |
+#### Capítulo 2
+| Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
-| ![Capítulo 2 - Código](./assets/Chapter_2.png) | ![Capítulo 2 - Ok](./assets/Chapter_2_Contracts_Ok.png) |
+| ![Capítulo 2 Código](./assets/Chapter_2.png) | ![Capítulo 2 Concluído](./assets/Chapter_2_Contract_OK.png) |
 
+#### Capítulo 3
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 3 Código](./assets/Chapter_3.png) | ![Capítulo 3 Concluído](./assets/Chapter_3_State_Variables_&_Integers.png) |
 ---
 
 ## 🛠️ Tecnologias Utilizadas
