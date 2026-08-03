@@ -21,7 +21,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 #### Capítulo 3
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
-| ![Capítulo 3 Código](./assets/Chapter_3.png) | ![Capítulo 3 Concluído](./assets/Chapter_3_State_Variables_&_Integers.png) |
+| ![Capítulo 3 Código](./assets/Chapter_3.png) | ![Capítulo 3 Concluído](./assets/Chapter_3_State_Variables_&_Integers_Ok.png) |
 ---
 
 ## 🛠️ Tecnologias Utilizadas
