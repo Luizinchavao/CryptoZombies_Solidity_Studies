@@ -14,6 +14,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 3:** Variáveis de estado (`uint`) e atribuição de valores (`uint dnaDigits = 16;`).
   - **Capítulo 4:** Operações matemáticas (`+`, `-`, `*`, `/`, `%`) e operador de exponenciação (`**`).
   - **Capítulo 5:** `struct` (Criação de tipos de dados personalizados complexos).
+  - **Capítulo 6:** `arrys` (Criação de matrizes/listas dinâmicas e públicas).
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -35,6 +36,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 5 Código](./assets/Chapter_5.png) | ![Capítulo 5 Concluído](./assets/Chapter_5_Structs_Ok.png) |
+
+#### Capítulo 6
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 6 Código](./assets/Chapter_6.png) | ![Capítulo 6 Concluído](./assets/Chapter_6_%20Arrays_Ok.png) |
 ---
 
 ## 🛠️ Tecnologias Utilizadas
