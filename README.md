@@ -16,7 +16,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 #### Capítulo 2
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
-| ![Capítulo 2 Código](./assets/Chapter_2.png) | ![Capítulo 2 Concluído](./assets/Chapter_2_Contract_OK.png) |
+| ![Capítulo 2 Código](./assets/Chapter_2.png) | ![Capítulo 2 Concluído](./assets/Chapter_2_Contract_Ok.png) |
 
 #### Capítulo 3
 | Código Desenvolvido | Lição Concluída |
