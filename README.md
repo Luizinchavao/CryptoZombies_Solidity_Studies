@@ -10,9 +10,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ### 🧟 Lição 1: Criando a Fábrica de Zumbis
 - **Tópicos:** 
-  - **Capítulo 2:** `pragma solidity` (definição de versão) e declaração do `contract ZombieFactory`.
+  - **Capítulo 2:** `pragma solidity` (Definição de versão) e declaração do `contract ZombieFactory`.
   - **Capítulo 3:** Variáveis de estado (`uint`) e atribuição de valores (`uint dnaDigits = 16;`).
   - **Capítulo 4:** Operações matemáticas (`+`, `-`, `*`, `/`, `%`) e operador de exponenciação (`**`).
+  - **Capítulo 5:** `struct` (Criação de tipos de dados personalizados complexos).
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -30,6 +31,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 4 Código](./assets/Chapter_4.png) | ![Capítulo 4 Concluído](./assets/Chapter_4_Math_Operations_Ok.png) |
 
+#### Capítulo 5
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 5 Código](./assets/Chapter_5.png) | ![Capítulo 5 Concluído](./assets/Chapter_5_Structs_Ok.png) |
 ---
 
 ## 🛠️ Tecnologias Utilizadas
