@@ -8,8 +8,8 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 1 - Capítulo 8 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 9
+- **Fase Atual:** Lição 1 - Capítulo 9 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 10
 - **Foco Atual:** Consolidação de fundamentos (structs, arrays e visibilidade) com adição de análise crítica de segurança/auditoria nos contratos.
 
 ---
@@ -25,6 +25,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 6:** `arrays` (Criação de matrizes/listas dinâmicas e públicas).
   - **Capítulo 7:** `function` (Declarações de funções, parâmetros e especificação de memória).
   - **Capítulo 8:** `push` com `structs` (Adicionando novos elementos a arrays dinâmicos).
+  - **Capítulo 9:** Funções privadas (`private`) e convenção de nomenclatura com underline (`_`).
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -62,26 +63,40 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 8 Código](./assets/Chapter_8.png) | ![Capítulo 8 Concluído](./assets/Chapter_8_Working_With_Structs_And_Arrays_Ok.png) |
 
+#### Capítulo 9
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 9 Código](./assets/Chapter_9.png) | ![Capítulo 9 Concluído](./assets/Chapter_9_Privete_Public_Funtions_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
 
-> **Relatório de Análise — Capítulo 8**
+> **Relatório de Análise — Lição 1 (Capítulos 8 e 9)**
 
-### 1. Trecho Vulnerável Identificado no Capítulo 8
+### 1. Histórico de Vulnerabilidade Identificada (Capítulo 8)
+* **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
+* **Risco/Cenário de Ataque:** Como a função era declarada como `public` sem nenhuma trava, qualquer carteira ou contrato externo podia executá-la milhares de vezes seguidas, inflando o array `zombies` no *Storage* da rede e podendo causar um ataque de Negação de Serviço (DoS) por excesso de estado.
+
 ```solidity
-// ⚠️ FALHA: Função pública sem controle de acesso ou limite de chamadas
+// ⚠️ VULNERÁVEL (Capítulo 8): Função pública sem restrição de acesso
 function createZombie(string memory _name, uint _dna) public {
     zombies.push(Zombie(_name, _dna));
 }
 ```
-### 2. Diagnóstico da Vulnerabilidade
-* **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
-* **Risco/Cenário de Ataque:** Como a função é declarada como `public` sem nenhuma trava `require`, qualquer carteira, bot ou contrato externo pode executá-la milhares de vezes seguidas. Isso permite a criação desordenada de zumbis, inflando o array `zombies` no *Storage* da rede e podendo causar um ataque de Negação de Serviço (DoS) por excesso de estado, além de desvalorizar a coleção no jogo.
 
-### 3. Mitigação Recomendada (A ser aplicada nas próximas etapas)
-* **Redução de Visibilidade:** Alterar de `public` para `private` ou `internal`.
-* **Controle de Regra de Negócio:** Criar uma função pública externa separada com validações (`require`) para limitar a criação (ex.: permitir apenas 1 zumbi grátis por endereço/carteira).
+### 2. Correção & Mitigação Aplicada (Capítulo 9) — 🟢 RESOLVIDO
+* **Status:** **Mitigado / Resolvido**
+* **Ação Corretiva:** 
+  - Restrição da visibilidade da função de `public` para `private`, impedindo chamadas externas diretas por carteiras ou contratos não autorizados.
+  - Aplicação do padrão de boas práticas de nomenclatura em Solidity, adicionando o *prefixo underline* (`_`) na função `_createZombie`.
+
+```solidity
+// 🔒 CORRIGIDO (Capítulo 9): Acesso restrito apenas ao próprio contrato
+function _createZombie(string memory _name, uint _dna) private {
+    zombies.push(Zombie(_name, _dna));
+}
+```
 
 ---
 
