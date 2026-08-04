@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 1 - Capítulo 9 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 10
-- **Foco Atual:** Consolidação de fundamentos (structs, arrays e visibilidade) com adição de análise crítica de segurança/auditoria nos contratos.
+- **Fase Atual:** Lição 1 - Capítulo 10 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 11
+- **Foco Atual:** Estudo de valores de retorno (`returns`) e modificadores de função (`view` para leitura de estado).
 
 ---
 
@@ -26,6 +26,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 7:** `function` (Declarações de funções, parâmetros e especificação de memória).
   - **Capítulo 8:** `push` com `structs` (Adicionando novos elementos a arrays dinâmicos).
   - **Capítulo 9:** Funções privadas (`private`) e convenção de nomenclatura com underline (`_`).
+  - **Capítulo 10:** Valores de retorno (`returns`) e modificadores de função (`view` para leitura de estado).
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -67,6 +68,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 9 Código](./assets/Chapter_9.png) | ![Capítulo 9 Concluído](./assets/Chapter_9_Privete_Public_Funtions_Ok.png) |
+
+#### Capítulo 10
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 10 Código](./assets/Chapter_10.png) | ![Capítulo 10 Concluído](./assets/Chapter_10_More_On_Functions_Ok.png) |
 
 ---
 
