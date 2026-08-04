@@ -6,6 +6,14 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
+## 📌 Status do Projeto
+
+- **Fase Atual:** Lição 1 - Capítulo 8 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 9
+- **Foco Atual:** Consolidação de fundamentos (structs, arrays e visibilidade) com adição de análise crítica de segurança/auditoria nos contratos.
+
+---
+
 ## 📸 Registro de Progresso
 
 ### 🧟 Lição 1: Criando a Fábrica de Zumbis
@@ -16,6 +24,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 5:** `struct` (Criação de tipos de dados personalizados complexos).
   - **Capítulo 6:** `arrays` (Criação de matrizes/listas dinâmicas e públicas).
   - **Capítulo 7:** `function` (Declarações de funções, parâmetros e especificação de memória).
+  - **Capítulo 8:** `push` com `structs` (Adicionando novos elementos a arrays dinâmicos).
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -47,9 +56,38 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 7 Código](./assets/Chapter_7.png) | ![Capítulo 7 Concluído](./assets/Chapter_7_Function_Declarations_Ok.png) |
+
+#### Capítulo 8
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 8 Código](./assets/Chapter_8.png) | ![Capítulo 8 Concluído](./assets/Chapter_8_Working_With_Structs_And_Arrays_Ok.png) |
+
 ---
 
-## 🛠️ Tecnologias Utilizadas
-- **Solidity** (Linguagem para Smart Contracts)
-- **VS Code** (Editor de código)
-- **Git & GitHub** (Controle de versão)
+## 🛡️ Notas de Auditoria & Segurança
+
+> **Relatório de Análise — Capítulo 8**
+
+### 1. Trecho Vulnerável Identificado no Capítulo 8
+```solidity
+// ⚠️ FALHA: Função pública sem controle de acesso ou limite de chamadas
+function createZombie(string memory _name, uint _dna) public {
+    zombies.push(Zombie(_name, _dna));
+}
+```
+### 2. Diagnóstico da Vulnerabilidade
+* **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
+* **Risco/Cenário de Ataque:** Como a função é declarada como `public` sem nenhuma trava `require`, qualquer carteira, bot ou contrato externo pode executá-la milhares de vezes seguidas. Isso permite a criação desordenada de zumbis, inflando o array `zombies` no *Storage* da rede e podendo causar um ataque de Negação de Serviço (DoS) por excesso de estado, além de desvalorizar a coleção no jogo.
+
+### 3. Mitigação Recomendada (A ser aplicada nas próximas etapas)
+* **Redução de Visibilidade:** Alterar de `public` para `private` ou `internal`.
+* **Controle de Regra de Negócio:** Criar uma função pública externa separada com validações (`require`) para limitar a criação (ex.: permitir apenas 1 zumbi grátis por endereço/carteira).
+
+---
+
+## 🛠️ Tecnologias & Ferramentas Utilizadas
+
+* **Solidity** (Linguagem de programação para Smart Contracts)
+* **CryptoZombies** (Plataforma interativa de aprendizagem Web3)
+* **VS Code** (Editor de código para desenvolvimento local)
+* **Git & GitHub** (Controle de versão e documentação de portfólio)
