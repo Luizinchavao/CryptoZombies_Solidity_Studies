@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 1 - Capítulo 10 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 11
-- **Foco Atual:** Estudo de valores de retorno (`returns`) e modificadores de função (`view` para leitura de estado).
+- **Fase Atual:** Lição 1 - Capítulo 11 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 12
+- **Foco Atual:** Geração de hashes (`keccak256`), conversão de tipos (*typecasting*) e análise de aleatoriedade na blockchain.
 
 ---
 
@@ -27,6 +27,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 8:** `push` com `structs` (Adicionando novos elementos a arrays dinâmicos).
   - **Capítulo 9:** Funções privadas (`private`) e convenção de nomenclatura com underline (`_`).
   - **Capítulo 10:** Valores de retorno (`returns`) e modificadores de função (`view` para leitura de estado).
+  - **Capítulo 11:** Geração de hashes com `keccak256`, conversão de tipos (*typecasting*) e operador de módulo (`%`).
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -74,13 +75,18 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 10 Código](./assets/Chapter_10.png) | ![Capítulo 10 Concluído](./assets/Chapter_10_More_On_Functions_Ok.png) |
 
+#### Capítulo 11
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 11 Código](./assets/Chapter_11.png) | ![Capítulo 11 Concluído](./assets/Chapter_11_Keccak256_And_Typecasting_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
 
-> **Relatório de Análise — Lição 1 (Capítulos 8 e 9)**
+> **Relatório de Análise — Lição 1 (Capítulos 8, 9 e 11)**
 
-### 1. Histórico de Vulnerabilidade Identificada (Capítulo 8)
+### 1. Vulnerabilidade de Controle de Acesso (Capítulo 8) — ⚠️ IDENTIFICADO
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
 * **Risco/Cenário de Ataque:** Como a função era declarada como `public` sem nenhuma trava, qualquer carteira ou contrato externo podia executá-la milhares de vezes seguidas, inflando o array `zombies` no *Storage* da rede e podendo causar um ataque de Negação de Serviço (DoS) por excesso de estado.
 
@@ -91,7 +97,7 @@ function createZombie(string memory _name, uint _dna) public {
 }
 ```
 
-### 2. Correção & Mitigação Aplicada (Capítulo 9) — 🟢 RESOLVIDO
+### 2. Correção & Mitigação de Controle de Acesso (Capítulo 9) — 🟢 RESOLVIDO
 * **Status:** **Mitigado / Resolvido**
 * **Ação Corretiva:** 
   - Restrição da visibilidade da função de `public` para `private`, impedindo chamadas externas diretas por carteiras ou contratos não autorizados.
@@ -101,6 +107,19 @@ function createZombie(string memory _name, uint _dna) public {
 // 🔒 CORRIGIDO (Capítulo 9): Acesso restrito apenas ao próprio contrato
 function _createZombie(string memory _name, uint _dna) private {
     zombies.push(Zombie(_name, _dna));
+}
+```
+
+### 3. Vulnerabilidade de Aleatoriedade Insegura (Capítulo 11) — ⚠️ IDENTIFICADO
+* **Falha:** Aleatoriedade Insegura baseada em Hash On-Chain (*Bad Randomness / Weak PRNG*).
+* **Risco/Cenário de Ataque:** O uso de `keccak256(abi.encodePacked(_str))` é 100% determinístico e previsível. Como os dados da transação ficam visíveis na *mempool* antes de serem minerados, um atacante ou *bot* pode calcular antecipadamente o DNA gerado. Se o resultado não for vantajoso (ex.: um zumbi com atributos fracos), ele cancela a transação ou só envia quando souber que gerará um zumbi raro.
+* **Mitigação Recomendada:** Para ambientes de produção (Mainnet), nunca utilizar variáveis de estado locais ou hashes simples para aleatoriedade. A boa prática de mercado é utilizar oráculos descentralizados, como o **Chainlink VRF (Verifiable Random Function)**, que provê números aleatórios comprováveis *off-chain*.
+
+```solidity
+// ⚠️ INSEGURO (Capítulo 11): Algoritmo determinístico e previsível por bots
+function _generateRandomDna(string memory _str) private view returns (uint) {
+    uint rand = uint(keccak256(abi.encodePacked(_str)));
+    return rand % dnaModulus;
 }
 ```
 
