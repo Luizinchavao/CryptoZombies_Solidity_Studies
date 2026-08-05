@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 1 - Capítulo 11 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 12
-- **Foco Atual:** Geração de hashes (`keccak256`), conversão de tipos (*typecasting*) e análise de aleatoriedade na blockchain.
+- **Fase Atual:** Lição 1 - Capítulo 12 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 13
+- **Foco Atual:** Composição de funções, abstração de interface pública e encadeamento de fluxo no contrato.
 
 ---
 
@@ -28,6 +28,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 9:** Funções privadas (`private`) e convenção de nomenclatura com underline (`_`).
   - **Capítulo 10:** Valores de retorno (`returns`) e modificadores de função (`view` para leitura de estado).
   - **Capítulo 11:** Geração de hashes com `keccak256`, conversão de tipos (*typecasting*) e operador de módulo (`%`).
+  - **Capítulo 12:** Funções publicas (`public`), composição de funções e integração da função `createRandomZombie`.
 - **Status:** Em andamento ⏳
 
 #### Capítulo 2
@@ -80,17 +81,23 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 11 Código](./assets/Chapter_11.png) | ![Capítulo 11 Concluído](./assets/Chapter_11_Keccak256_And_Typecasting_Ok.png) |
 
+#### Capítulo 12
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 12 Código](./assets/Chapter_12.png) | ![Capítulo 12 Concluído](./assets/Chapter_12_Putting_It_Together_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
 
-> **Relatório de Análise — Lição 1 (Capítulos 8, 9 e 11)**
+> **Relatório de Análise — Lição 1 (Capítulos 8, 9, 11 e 12)**
 
 ### 1. Vulnerabilidade de Controle de Acesso (Capítulo 8) — ⚠️ IDENTIFICADO
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
 * **Risco/Cenário de Ataque:** Como a função era declarada como `public` sem nenhuma trava, qualquer carteira ou contrato externo podia executá-la milhares de vezes seguidas, inflando o array `zombies` no *Storage* da rede e podendo causar um ataque de Negação de Serviço (DoS) por excesso de estado.
 
 ```solidity
+
 // ⚠️ VULNERÁVEL (Capítulo 8): Função pública sem restrição de acesso
 function createZombie(string memory _name, uint _dna) public {
     zombies.push(Zombie(_name, _dna));
@@ -120,6 +127,21 @@ function _createZombie(string memory _name, uint _dna) private {
 function _generateRandomDna(string memory _str) private view returns (uint) {
     uint rand = uint(keccak256(abi.encodePacked(_str)));
     return rand % dnaModulus;
+}
+```
+
+### 4. Arquitetura, Abstração e Proteção de Fluxo (Capítulo 12) — 🟢 BOA PRÁTICA APLICADA
+* **Padrão Utilizado:** Camada de Abstração Pública (*Public Interface / Facade Pattern*).
+* **Análise Técnica:** No Capítulo 12, a função `createRandomZombie` é criada como o único ponto de entrada público (`public`) para a criação de zumbis.
+* **Ganho de Segurança & Integridade:**
+  - Ao encapsular `_generateRandomDna` e `_createZombie` como funções privadas, o contrato impede que usuários externos enviem valores arbitrários de DNA (evitando a injeção manual de parâmetros).
+  - O contrato impõe um fluxo de execução rígido e controlado: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
+
+```solidity
+// 🏛️ ARQUITETURA SEGURA (Capítulo 12): Interface pública controlando o fluxo interno
+function createRandomZombie(string memory _name) public {
+    uint randDna = _generateRandomDna(_name);
+    _createZombie(_name, randDna);
 }
 ```
 
