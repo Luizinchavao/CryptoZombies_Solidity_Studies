@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 1 - Capítulo 13 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 14
-- **Foco Atual:** Composição de funções, abstração de interface pública e encadeamento de fluxo no contrato.
+- **Fase Atual:** Lição 1 Concluída (14/14 Capítulos) 🏁
+- **Status:** 🟢 Lição 1 Finalizada / Preparação para a Lição 2
+- **Foco Atual:** Finalização da Fábrica de Zumbis, integração frontend via Web3.js e geração visual do nosso primeiro zumbi on-chain.
 
 ---
 
@@ -32,8 +32,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 13:** Eventos (`events` & Comunicação Off-Chain)
   - **Conceito:** Implementação de `events` em Solidity e emissão de logs utilizando a palavra-chave `emit`.
   - **Objetivo:** Permitir que contratos inteligentes se comuniquem com a interface do usuário (Frontend/Web3.js) sem a necessidade de polling constante na blockchain.
+  - **Capítulo 14:** Web3.js & Integração Frontend
+  - **Conceito:** Integração prática entre o Smart Contract em Solidity e o frontend em JavaScript utilizando a biblioteca Web3.js.
+  - **Objetivo:** Capturar eventos da blockchain, processar o DNA de 16 dígitos e renderizar dinamicamente o zumbi gerado na tela.
 
-- **Status:** Em andamento ⏳
+- **Status:** Lição 1 Concluída! 🎉
 
 #### Capítulo 2
 | Código Desenvolvido | Lição Concluída |
@@ -95,6 +98,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 13 Código](./assets/Chapter_13.png) | ![Capítulo 13 Concluído](./assets/Chapter_13_Events_Ok.png) |
 
+#### Capítulo 14
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 14 Código](./assets/Chapter_14.png) | ![Capítulo 14 Concluído](./assets/Chapter_14_Web3_Js_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
@@ -137,7 +145,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 * **Análise Técnica:** No Capítulo 12, a função `createRandomZombie` é criada como o único ponto de entrada público (`public`) para a criação de zumbis.
 * **Ganho de Segurança & Integridade:**
   - Ao encapsular `_generateRandomDna` e `_createZombie` como funções privadas, o contrato impede que usuários externos enviem valores arbitrários de DNA (evitando a injeção manual de parâmetros).
-  - O contrato impõe um fluxo de execução rígido e controlado: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
+  - O contrato impõe um fluxo de execução rígido e controlled: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
 
     // 🏛️ ARQUITETURA SEGURA (Capítulo 12): Interface pública controlando o fluxo interno
     function createRandomZombie(string memory _name) public {
