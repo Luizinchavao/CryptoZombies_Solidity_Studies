@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 1 Concluída (14/14 Capítulos) 🏁
-- **Status:** 🟢 Lição 1 Finalizada / Preparação para a Lição 2
-- **Foco Atual:** Finalização da Fábrica de Zumbis, integração frontend via Web3.js e geração visual do nosso primeiro zumbi on-chain.
+- **Fase Atual:** Lição 2 - Capítulo 2 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 3
+- **Foco Atual:** Mapeamentos (`mapping`), endereços (`address`), propriedade de ativos e lógica de combate entre zumbis.
 
 ---
 
@@ -105,6 +105,23 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
+### ⚔️ Lição 2: Zumbis Atacam Suas Vítimas
+- **Tópicos:**
+  - **Capítulo 1:** Visão geral da arquitetura para transformar o jogo em multiplayer e gerenciar propriedade de ativos.
+  - **Capítulo 2:** Mapeamentos (`mapping`) e Endereços (`address`).
+    - **Conceito:** Associação de posse de ativos através de endereços da Ethereum (160 bits) e busca performática via chave-valor.
+    - **Objetivo:** Mapear qual carteira é dona de qual zumbi (`zombieToOwner`) e quantos zumbis um endereço possui (`ownerZombieCount`).
+
+- **Status:** Lição 2 Em Andamento ⏳
+
+
+#### Capítulo 2
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 2 Código](./assets/2_Chapter_2.png) | ![Capítulo 2 Concluído](./assets/2_Chapter_2_Mappings_And_Addresses_Ok.png) |
+
+---
+
 ## 🛡️ Notas de Auditoria & Segurança
 
 > **Relatório de Análise — Lição 1 (Capítulos 8, 9, 11, 12 e 13)**
@@ -113,10 +130,12 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
 * **Risco/Cenário de Ataque:** Como a função era declarada como `public` sem nenhuma trava, qualquer carteira ou contrato externo podia executá-la milhares de vezes seguidas, inflando o array `zombies` no *Storage* da rede e podendo causar um ataque de Negação de Serviço (DoS) por excesso de estado.
 
-    // ⚠️ VULNERÁVEL (Capítulo 8): Função pública sem restrição de acesso
-    function createZombie(string memory _name, uint _dna) public {
-        zombies.push(Zombie(_name, _dna));
-    }
+```solidity
+// ⚠️ VULNERÁVEL (Capítulo 8): Função pública sem restrição de acesso
+function createZombie(string memory _name, uint _dna) public {
+    zombies.push(Zombie(_name, _dna));
+}
+```
 
 ### 2. Correção & Mitigação de Controle de Acesso (Capítulo 9) — 🟢 RESOLVIDO
 * **Status:** **Mitigado / Resolvido**
@@ -124,34 +143,40 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - Restrição da visibilidade da função de `public` para `private`, impedindo chamadas externas diretas por carteiras ou contratos não autorizados.
   - Aplicação do padrão de boas práticas de nomenclatura em Solidity, adicionando o *prefixo underline* (`_`) na função `_createZombie`.
 
-    // 🔒 CORRIGIDO (Capítulo 9): Acesso restrito apenas ao próprio contrato
-    function _createZombie(string memory _name, uint _dna) private {
-        zombies.push(Zombie(_name, _dna));
-    }
+```solidity
+// 🔒 CORRIGIDO (Capítulo 9): Acesso restrito apenas ao próprio contrato
+function _createZombie(string memory _name, uint _dna) private {
+    zombies.push(Zombie(_name, _dna));
+}
+```
 
 ### 3. Vulnerabilidade de Aleatoriedade Insegura (Capítulo 11) — ⚠️ IDENTIFICADO
 * **Falha:** Aleatoriedade Insegura baseada em Hash On-Chain (*Bad Randomness / Weak PRNG*).
-* **Risco/Cenário de Ataque:** O uso de `keccak256(abi.encodePacked(_str))` é 100% determinístico e previsível. Como os dados da transação ficam visíveis na *mempool* antes de serem minerados, um atacante ou *bot* pode calcular antecipadamente o DNA gerado. Se o resultado não for vantajoso (ex.: um zumbi com atributos fracos), ele cancela a transação ou só envia quando souber que gerará um zumbi raro.
+* **Risco/Cenário de Ataque:** O uso de `keccak256(abi.encodePacked(_str))` é 100% determinístico e previsível. Como os dados da transação ficam visíveis na *mempool* antes de serem minerados, um atacante ou *bot* pode calcular antecipadamente o DNA gerado. Se o resultado não for vantajoso, ele cancela a transação ou só envia quando souber que gerará um zumbi raro.
 * **Mitigação Recomendada:** Para ambientes de produção (Mainnet), nunca utilizar variáveis de estado locais ou hashes simples para aleatoriedade. A boa prática de mercado é utilizar oráculos descentralizados, como o **Chainlink VRF (Verifiable Random Function)**, que provê números aleatórios comprováveis *off-chain*.
 
-    // ⚠️ INSEGURO (Capítulo 11): Algoritmo determinístico e previsível por bots
-    function _generateRandomDna(string memory _str) private view returns (uint) {
-        uint rand = uint(keccak256(abi.encodePacked(_str)));
-        return rand % dnaModulus;
-    }
+```solidity
+// ⚠️ INSEGURO (Capítulo 11): Algoritmo determinístico e previsível por bots
+function _generateRandomDna(string memory _str) private view returns (uint) {
+    uint rand = uint(keccak256(abi.encodePacked(_str)));
+    return rand % dnaModulus;
+}
+```
 
 ### 4. Arquitetura, Abstração e Proteção de Fluxo (Capítulo 12) — 🟢 BOA PRÁTICA APLICADA
 * **Padrão Utilizado:** Camada de Abstração Pública (*Public Interface / Facade Pattern*).
 * **Análise Técnica:** No Capítulo 12, a função `createRandomZombie` é criada como o único ponto de entrada público (`public`) para a criação de zumbis.
 * **Ganho de Segurança & Integridade:**
   - Ao encapsular `_generateRandomDna` e `_createZombie` como funções privadas, o contrato impede que usuários externos enviem valores arbitrários de DNA (evitando a injeção manual de parâmetros).
-  - O contrato impõe um fluxo de execução rígido e controlled: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
+  - O contrato impõe um fluxo de execução rígido e controlado: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
 
-    // 🏛️ ARQUITETURA SEGURA (Capítulo 12): Interface pública controlando o fluxo interno
-    function createRandomZombie(string memory _name) public {
-        uint randDna = _generateRandomDna(_name);
-        _createZombie(_name, randDna);
-    }
+```solidity
+// 🏛️ ARQUITETURA SEGURA (Capítulo 12): Interface pública controlando o fluxo interno
+function createRandomZombie(string memory _name) public {
+    uint randDna = _generateRandomDna(_name);
+    _createZombie(_name, randDna);
+}
+```
 
 ### 5. Comunicação Off-Chain & Otimização de Gas via Eventos (Capítulo 13) — 🟢 BOA PRÁTICA APLICADA
 * **Padrão Utilizado:** Emissão de Logs via `event` (`NewZombie`).
@@ -160,13 +185,15 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Otimização de Gas:** Emitir um evento grava os dados nos logs de transação da EVM, o que custa substancialmente menos *gas* do que armazenar informações redundantes no *Storage* do contrato.
   - **Assincronismo:** Permite que a aplicação Web3 reaja em tempo real à criação de novos zumbis ("escutando" o evento) sem precisar fazer consultas repetitivas e dispendiosas (*polling*) na blockchain.
 
-    // 📢 EVENTOS & LOGS (Capítulo 13): Comunicação otimizada com o Frontend
-    event NewZombie(uint zombieId, string name, uint dna);
+```solidity
+// 📢 EVENTOS & LOGS (Capítulo 13): Comunicação otimizada com o Frontend
+event NewZombie(uint zombieId, string name, uint dna);
 
-    function _createZombie(string memory _name, uint _dna) private {
-        uint id = zombies.push(Zombie(_name, _dna)) - 1;
-        emit NewZombie(id, _name, _dna);
-    }
+function _createZombie(string memory _name, uint _dna) private {
+    uint id = zombies.push(Zombie(_name, _dna)) - 1;
+    emit NewZombie(id, _name, _dna);
+}
+```
 
 ---
 
