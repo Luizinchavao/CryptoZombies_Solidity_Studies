@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 4 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 5
-- **Foco Atual:** Mapeamentos (`mapping`), variáveis globais (`msg.sender`), validações de estado (`require`), limitação de ativos por carteira e lógica de combate entre zumbis.
+- **Fase Atual:** Lição 2 - Capítulo 5 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 6
+- **Foco Atual:** Mapeamentos (`mapping`), variáveis globais (`msg.sender`), validações de estado (`require`), limitação de ativos por carteira, herança de contratos (`is`) e lógica de combate entre zumbis.
 
 ---
 
@@ -146,6 +146,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 4:** Validações de Estado & Trava de Execução (`require`)
     - **Conceito:** Interrupção de fluxo de execução e reversão de transação (*revert*) para validação de regras de negócio.
     - **Objetivo:** Garantir que cada jogador só possa criar 1 zumbi inicial limitando a execução da função `createRandomZombie` via `require(ownerZombieCount[msg.sender] == 0)`.
+  - **Capítulo 5:** Herança de Contratos (`is`)
+    - **Conceito:** Modularização do código através da relação de herança entre contratos inteligentes.
+    - **Objetivo:** Criar o contrato `ZombieFeeding` herdando todas as estruturas, variáveis e funções de `ZombieFactory` utilizando a palavra-chave `is`. 
 - **Status:** Lição 2 Em Andamento ⏳
 
 
@@ -163,6 +166,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 4 Código](./assets/2_Chapter_4.png) | ![Capítulo 4 Concluído](./assets/2_Chapter_4_Require_Ok.png) |
+
+#### Capítulo 5
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 5 Código](./assets/2_Chapter_5.png) | ![Capítulo 5 Concluído](./assets/2_Chapter_5_Inheritance_Ok.png) |
 
 ---
 
