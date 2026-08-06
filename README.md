@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 2 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 3
-- **Foco Atual:** Mapeamentos (`mapping`), endereços (`address`), propriedade de ativos e lógica de combate entre zumbis.
+- **Fase Atual:** Lição 2 - Capítulo 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 4
+- **Foco Atual:** Mapeamentos (`mapping`), variáveis globais (`msg.sender`), endereços (`address`), propriedade de ativos e lógica de combate entre zumbis.
 
 ---
 
@@ -18,25 +18,52 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ### 🧟 Lição 1: Criando a Fábrica de Zumbis
 - **Tópicos:** 
-  - **Capítulo 2:** `pragma solidity` (Definição de versão) e declaração do `contract ZombieFactory`.
-  - **Capítulo 3:** Variáveis de estado (`uint`) e atribuição de valores (`uint dnaDigits = 16;`).
-  - **Capítulo 4:** Operações matemáticas (`+`, `-`, `*`, `/`, `%`) e operador de exponenciação (`**`).
-  - **Capítulo 5:** `struct` (Criação de tipos de dados personalizados complexos).
-  - **Capítulo 6:** `arrays` (Criação de matrizes/listas dinâmicas e públicas).
-  - **Capítulo 7:** `function` (Declarações de funções, parâmetros e especificação de memória).
-  - **Capítulo 8:** `push` com `structs` (Adicionando novos elementos a arrays dinâmicos).
-  - **Capítulo 9:** Funções privadas (`private`) e convenção de nomenclatura com underline (`_`).
-  - **Capítulo 10:** Valores de retorno (`returns`) e modificadores de função (`view` para leitura de estado).
-  - **Capítulo 11:** Geração de hashes com `keccak256`, conversão de tipos (*typecasting*) e operador de módulo (`%`).
-  - **Capítulo 12:** Funções públicas (`public`), composição de funções e integração da função `createRandomZombie`.
-  - **Capítulo 13:** Eventos (`events` & Comunicação Off-Chain)
-  - **Conceito:** Implementação de `events` em Solidity e emissão de logs utilizando a palavra-chave `emit`.
-  - **Objetivo:** Permitir que contratos inteligentes se comuniquem com a interface do usuário (Frontend/Web3.js) sem a necessidade de polling constante na blockchain.
-  - **Capítulo 14:** Web3.js & Integração Frontend
-  - **Conceito:** Integração prática entre o Smart Contract em Solidity e o frontend em JavaScript utilizando a biblioteca Web3.js.
-  - **Objetivo:** Capturar eventos da blockchain, processar o DNA de 16 dígitos e renderizar dinamicamente o zumbi gerado na tela.
+  - **Capítulo 1:** Visão Geral & Introdução
+    - **Conceito:** Arquitetura básica de contratos inteligentes executados na Ethereum Virtual Machine (EVM).
+    - **Objetivo:** Compreender o funcionamento do jogo interativo e a estrutura fundamental dos contratos em Solidity.
+  - **Capítulo 2:** `pragma solidity` & Declaração de Contrato
+    - **Conceito:** Versionamento de compilador e encapsulamento de código via `contract`.
+    - **Objetivo:** Definir a versão do compilador Solidity (`pragma`) e declarar a estrutura base do contrato `ZombieFactory`.
+  - **Capítulo 3:** Variáveis de Estado & Inteiros (`uint`)
+    - **Conceito:** Armazenamento persistente de dados na blockchain (*Storage*) e tipos numéricos não assinados.
+    - **Objetivo:** Definir a variável de estado `dnaDigits` para estabelecer a precisão numérica de 16 dígitos do DNA dos zumbis.
+  - **Capítulo 4:** Operações Matemáticas
+    - **Conceito:** Aritmética de precisão em Solidity (`+`, `-`, `*`, `/`, `%`) e exponenciação (`**`).
+    - **Objetivo:** Calcular o `dnaModulus` ($10^{16}$) para limitar e manipular matematicamente os valores do DNA.
+  - **Capítulo 5:** Estruturas de Dados (`struct`)
+    - **Conceito:** Criação de tipos de dados personalizados complexos.
+    - **Objetivo:** Modelar a estrutura `Zombie` composta por atributos de nome (`string`) e DNA (`uint`).
+  - **Capítulo 6:** Arrays Dynamicos e Públicos (`arrays`)
+    - **Conceito:** Coleções de dados dinâmicas e geração automática de funções getter de leitura com o modificador `public`.
+    - **Objetivo:** Criar o array dinâmico e público `zombies` para armazenar a lista global de zumbis do jogo.
+  - **Capítulo 7:** Declarações de Funções & Escopo de Memória
+    - **Conceito:** Assinatura de funções, passagem de parâmetros e especificação de localização de dados (`memory`).
+    - **Objetivo:** Declarar a função `createZombie` com parâmetros de entrada para nome e DNA.
+  - **Capítulo 8:** Manipulação de Arrays Dinâmicos (`push`)
+    - **Conceito:** Inserção de novos elementos em arrays e gerenciamento de estado em structs.
+    - **Objetivo:** Instanciar novos objetos `Zombie` e adicioná-los ao array `zombies` via `.push()`.
+  - **Capítulo 9:** Visibilidade de Funções (`private`) & Convenções de Código
+    - **Conceito:** Restrição do controle de acesso interno e padronização de nomenclatura com o prefixo underline (`_`).
+    - **Objetivo:** Converter `createZombie` para a função privada `_createZombie`, impedindo chamadas externas não autorizadas.
+  - **Capítulo 10:** Retorno de Valores & Modificadores de Leitura (`view` / `pure`)
+    - **Conceito:** Declarações de retorno (`returns`) e otimização de execução sem alteração de estado na rede via `view`.
+    - **Objetivo:** Entender a diferença entre funções que alteram o estado da blockchain e funções de simples consulta sem custo de gás.
+  - **Capítulo 11:** Hashes & Conversão de Tipos (`keccak256` & Typecasting)
+    - **Conceito:** Geração de identificadores pseudo-aleatórios via Keccak256 e casting de tipos primitivos.
+    - **Objetivo:** Criar a função `_generateRandomDna` para transformar dados de entrada em números de 16 dígitos usando `keccak256` e o operador `%`.
+  - **Capítulo 12:** Abstração de Interfaces Públicas & Composição
+    - **Conceito:** Padrão de Fachada (*Facade Pattern*) e isolamento de fluxos de execução internos.
+    - **Objetivo:** Criar a interface pública `createRandomZombie` para unificar a geração de DNA e a criação do zumbi em uma única chamada.
+  - **Capítulo 13:** Eventos (`events`) & Logs da EVM
+    - **Conceito:** Comunicação assíncrona off-chain sem necessidade de polling constante via `emit`.
+    - **Objetivo:** Declarar e emitir o evento `NewZombie` para notificar aplicações externas quando um novo zumbi for criado.
+  - **Capítulo 14:** Integração Web3.js & Frontend
+    - **Conceito:** Conexão entre o Smart Contract e a camada de interface do usuário via JavaScript.
+    - **Objetivo:** Escutar eventos disparados pela blockchain para capturar dados em tempo real e renderizar o zumbi dinamicamente na tela.
 
 - **Status:** Lição 1 Concluída! 🎉
+
+---
 
 #### Capítulo 2
 | Código Desenvolvido | Lição Concluída |
@@ -107,10 +134,15 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ### ⚔️ Lição 2: Zumbis Atacam Suas Vítimas
 - **Tópicos:**
-  - **Capítulo 1:** Visão geral da arquitetura para transformar o jogo em multiplayer e gerenciar propriedade de ativos.
-  - **Capítulo 2:** Mapeamentos (`mapping`) e Endereços (`address`).
+  - **Capítulo 1:** Arquitetura Multiplayer & Propriedade de Ativos
+    - **Conceito:** Visão geral sobre gerenciamento de estado distribuído para suporte a múltiplos usuários concorrentes.
+    - **Objetivo:** Estruturar a lógica do jogo para atribuir a posse individual de cada ativo (zumbi) à carteira do seu criador.
+  - **Capítulo 2:** Mapeamentos (`mapping`) e Endereços (`address`)
     - **Conceito:** Associação de posse de ativos através de endereços da Ethereum (160 bits) e busca performática via chave-valor.
     - **Objetivo:** Mapear qual carteira é dona de qual zumbi (`zombieToOwner`) e quantos zumbis um endereço possui (`ownerZombieCount`).
+  - **Capítulo 3:** Remetente da Mensagem (`msg.sender`) & Registro de Propriedade
+    - **Conceito:** Identificação criptográfica do remetente da transação através da variável global `msg.sender`.
+    - **Objetivo:** Vincular a propriedade do zumbi recém-criado à carteira do chamador (`zombieToOwner[id] = msg.sender`) e incrementar seu saldo (`ownerZombieCount[msg.sender]++`).
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -119,6 +151,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 2 Código](./assets/2_Chapter_2.png) | ![Capítulo 2 Concluído](./assets/2_Chapter_2_Mappings_And_Addresses_Ok.png) |
+
+#### Capítulo 3
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 3 Código](./assets/2_Chapter_3.png) | ![Capítulo 3 Concluído](./assets/2_Chapter_3_Msg_Sender_Ok.png) |
 
 ---
 
@@ -194,7 +231,15 @@ function _createZombie(string memory _name, uint _dna) private {
     emit NewZombie(id, _name, _dna);
 }
 ```
+### 6. Autenticidade de Identidade & Ausência de Trava por Carteira (Lição 2 - Capítulo 3) — 🟢 BOA PRÁTICA / ⚠️ PONTO DE ATENÇÃO
+* **Padrão Utilizado:** Identificação Imutável via `` `msg.sender` ``.
+* **Análise Técnica:** O uso de `` `msg.sender` `` no registro de posse (`zombieToOwner[id] = msg.sender`) garante a autenticidade da transação. Criptograficamente, é impossível uma carteira se passar por outra sem possuir a chave privada correspondente.
+* **Ponto de Atenção Identificado (Regra de Negócio / Rate Limiting):** A função pública `createRandomZombie` ainda não possui verificação (`require`) de zumbis existentes por carteira. Um mesmo `` `msg.sender` `` pode invocar a criação de zumbis ilimitadas vezes, inflando o estado `ownerZombieCount` e acumulando zumbis sem restrição.
 
+```solidity
+// 🔒 AUTÊNTICO (Capítulo 3): Atribuição segura ao remetente da transação
+zombieToOwner[id] = msg.sender;
+ownerZombieCount[msg.sender]++;
 ---
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
