@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 4
-- **Foco Atual:** Mapeamentos (`mapping`), variáveis globais (`msg.sender`), endereços (`address`), propriedade de ativos e lógica de combate entre zumbis.
+- **Fase Atual:** Lição 2 - Capítulo 4 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 5
+- **Foco Atual:** Mapeamentos (`mapping`), variáveis globais (`msg.sender`), validações de estado (`require`), limitação de ativos por carteira e lógica de combate entre zumbis.
 
 ---
 
@@ -143,7 +143,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 3:** Remetente da Mensagem (`msg.sender`) & Registro de Propriedade
     - **Conceito:** Identificação criptográfica do remetente da transação através da variável global `msg.sender`.
     - **Objetivo:** Vincular a propriedade do zumbi recém-criado à carteira do chamador (`zombieToOwner[id] = msg.sender`) e incrementar seu saldo (`ownerZombieCount[msg.sender]++`).
-
+  - **Capítulo 4:** Validações de Estado & Trava de Execução (`require`)
+    - **Conceito:** Interrupção de fluxo de execução e reversão de transação (*revert*) para validação de regras de negócio.
+    - **Objetivo:** Garantir que cada jogador só possa criar 1 zumbi inicial limitando a execução da função `createRandomZombie` via `require(ownerZombieCount[msg.sender] == 0)`.
 - **Status:** Lição 2 Em Andamento ⏳
 
 
@@ -157,11 +159,16 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 3 Código](./assets/2_Chapter_3.png) | ![Capítulo 3 Concluído](./assets/2_Chapter_3_Msg_Sender_Ok.png) |
 
+#### Capítulo 4
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 4 Código](./assets/2_Chapter_4.png) | ![Capítulo 4 Concluído](./assets/2_Chapter_4_Require_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
 
-> **Relatório de Análise — Lição 1 (Capítulos 8, 9, 11, 12 e 13)**
+> **Relatório de Análise — Lição 1 (Capítulos 8, 9, 11, 12 e 13) e Lição 2 (Capítulos 3 e 4)** 
 
 ### 1. Vulnerabilidade de Controle de Acesso (Capítulo 8) — ⚠️ IDENTIFICADO
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
@@ -240,7 +247,22 @@ function _createZombie(string memory _name, uint _dna) private {
 // 🔒 AUTÊNTICO (Capítulo 3): Atribuição segura ao remetente da transação
 zombieToOwner[id] = msg.sender;
 ownerZombieCount[msg.sender]++;
----
+```
+### 7. Validação de Execução & Mitigação por Carteira (Lição 2 - Capítulo 4) — 🟢 RESOLVIDO
+* **Status:** **Mitigado / Resolvido**
+* **Padrão Utilizado:** Trava de Validação com `require`.
+* **Análise Técnica:** No Capítulo 4, resolveu-se o ponto de atenção identificado no Capítulo 3 através da instrução `require(ownerZombieCount[msg.sender] == 0)`.
+* **Ganho de Segurança & Regra de Negócio:**
+  - Se um usuário tentar invocar a criação do zumbi inicial uma segunda vez, a condição do `require` retornará `false`, interrompendo e revertendo a transação imediatamente, protegendo o contrato de spam e acúmulo desordenado de estado.
+
+> 🔒 **SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador**
+> ```solidity
+> function createRandomZombie(string memory _name) public {
+>     require(ownerZombieCount[msg.sender] == 0);
+>     uint randDna = _generateRandomDna(_name);
+>     _createZombie(_name, randDna);
+> }
+> ```
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
 
