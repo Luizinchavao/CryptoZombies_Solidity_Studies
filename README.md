@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 5 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 6
-- **Foco Atual:** Mapeamentos (`mapping`), variáveis globais (`msg.sender`), validações de estado (`require`), limitação de ativos por carteira, herança de contratos (`is`) e lógica de combate entre zumbis.
+- **Fase Atual:** Lição 2 - Capítulo 6 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 7
+- **Foco Atual:** Herança de contratos, importação de arquivos (`import`), herança de contratos (`is`) e preparação para manipulação de structs entre contratos. 
 
 ---
 
@@ -149,6 +149,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 5:** Herança de Contratos (`is`)
     - **Conceito:** Modularização do código através da relação de herança entre contratos inteligentes.
     - **Objetivo:** Criar o contrato `ZombieFeeding` herdando todas as estruturas, variáveis e funções de `ZombieFactory` utilizando a palavra-chave `is`. 
+  - **Capítulo 6:** Importação de Arquivos (`import`)
+    - **Conceito:** Modularização do projeto através da separação de contratos em múltiplos arquivos `.sol`.
+    - **Objetivo:** Criar o arquivo `zombiefeeding.sol`, importar a base do `zombiefactory.sol` via `import "./zombiefactory.sol";` e definir a herança `ZombieFeeding is ZombieFactory`.
+
 - **Status:** Lição 2 Em Andamento ⏳
 
 
@@ -171,6 +175,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 5 Código](./assets/2_Chapter_5.png) | ![Capítulo 5 Concluído](./assets/2_Chapter_5_Inheritance_Ok.png) |
+
+#### Capítulo 6
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 6 Código](./assets/2_Chapter_6.png) | ![Capítulo 6 Concluído](./assets/2_Chapter_6_Import_Ok.png) |
 
 ---
 
@@ -272,6 +281,22 @@ ownerZombieCount[msg.sender]++;
 > }
 > ```
 
+### 8. Arquitetura Modular e Superfície de Ataque por Herança
+
+* **Vulnerabilidade / Risco:** ⚠️ Contratos extensos e monolíticos (*God Contracts*) dificultam a leitura e ocultam falhas críticas. Ao utilizar herança (`is`), o contrato filho passa a herdar todas as funções e variáveis do pai (`public` e `internal`), expandindo a superfície de ataque se a herança não for intencional ou bem mapeada.
+* **Mitigação / Boa Prática:** 🛡️ Modularizar o projeto dividindo a lógica em arquivos `.sol` independentes e realizar a importação via `import "./arquivo.sol";`. Isso isola responsabilidades, facilita a realização de testes unitários e simplifica o processo de auditoria.
+
+```solidity
+pragma solidity >=0.5.0 <0.6.0;
+
+// Importação do contrato pai mantendo o escopo modular
+import "./zombiefactory.sol";
+
+// Herança explícita para reuso seguro de código
+contract ZombieFeeding is ZombieFactory {
+
+}
+```
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
 
 * **Solidity** (Linguagem de programação para Smart Contracts)

@@ -34,6 +34,3 @@ contract ZumbieFactory {
     }
 }
 
-contract ZombieFeeding is ZombieFactory {
-    
-}
