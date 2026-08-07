@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 6 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 7
-- **Foco Atual:** Herança de contratos, importação de arquivos (`import`), herança de contratos (`is`) e preparação para manipulação de structs entre contratos. 
+- **Fase Atual:** Lição 2 - Capítulo 7 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 8
+- **Foco Atual:** Localização de dados (`storage` vs `memory`), validação de propriedade de ativos (`require`) e início do cálculo de fusão de DNA.
 
 ---
 
@@ -152,6 +152,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 6:** Importação de Arquivos (`import`)
     - **Conceito:** Modularização do projeto através da separação de contratos em múltiplos arquivos `.sol`.
     - **Objetivo:** Criar o arquivo `zombiefeeding.sol`, importar a base do `zombiefactory.sol` via `import "./zombiefactory.sol";` e definir a herança `ZombieFeeding is ZombieFactory`.
+  - **Capítulo 7:** Storage vs Memory e Controle de Acesso
+    -  **Conceito:** Compreensão da diferença entre alocação de memória permanente (`storage` - ponteiro    direto para o estado global da blockchain) e temporária (`memory` - memória descartável durante a execução da transação), além da implementação de travas de propriedade via `require`.
+    -  **Objetivo:** Criar a estrutura da função `feedAndMultiply`, garantindo que apenas o proprietário legítimo de um zumbi possa executá-la (`require(msg.sender == zombieToOwner[_zombieId])`) e instanciar um ponteiro `storage` para o zumbi selecionado.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -180,6 +183,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 6 Código](./assets/2_Chapter_6.png) | ![Capítulo 6 Concluído](./assets/2_Chapter_6_Import_Ok.png) |
+
+#### Capítulo 7
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 7 Código](./assets/2_Chapter_7.png) | ![Capítulo 7 Concluído](./assets/2_Chapter_7_Storage_Vs_Memory_Data_Location_Ok.jpg) |
 
 ---
 
@@ -297,6 +305,22 @@ contract ZombieFeeding is ZombieFactory {
 
 }
 ```
+
+### 9. Controle de Acesso & Risco de Mutações Indesejadas via Ponteiro Storage (Capítulo 7)
+
+* **Vulnerabilidade / Risco:** ⚠️ **Controle de Acesso Quebrado e Mutações Indesejadas de Estado:** Executar ações em zumbis de terceiros por falta de validação, ou alterar dados permanentemente por engano. Ao declarar uma variável como `storage`, cria-se um ponteiro direto para o estado da blockchain; qualquer alteração nela sobrescreve o banco de dados da EVM e consome alto valor em gás.
+* **Mitigação / Boa Prática:** 🛡️ Validar a posse do ativo no início da função via `require(msg.sender == zombieToOwner[_zombieId])`. Usar `storage` estritamente quando a intenção for modificar o estado permanente (como na função `feedAndMultiply`, que alterará o DNA no próximo capítulo). Caso a operação seja apenas de leitura ou cálculo temporário, deve-se utilizar `memory`.
+
+```solidity
+function feedAndMultiply(uint _zombieId, uint _targetDna) public {
+    // 🔒 Trava de segurança: Valida se o chamador é o dono legítimo do zumbi
+    require(msg.sender == zombieToOwner[_zombieId]);
+    
+    // 📌 Ponteiro de estado direto no Storage (preparando para alteração de DNA no Cap. 8)
+    Zombie storage myZombie = zombies[_zombieId];
+}
+```
+
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
 
 * **Solidity** (Linguagem de programação para Smart Contracts)
