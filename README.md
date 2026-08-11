@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 10 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 11
-- **Foco Atual:** Comunicação inter-contratos, criação de interfaces (`interface` / `contract`), assinaturas de funções externas e retorno de múltiplos valores.
+- **Fase Atual:** Lição 2 - Capítulo 11 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 12
+- **Foco Atual:** Instanciação de interface on-chain, passagem de endereços (`address`) e preparação para consumo de contratos externos
 
 ---
 
@@ -161,9 +161,12 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 9:** Mais sobre visibilidade de funções (`internal` & `external`)  
     - **Conceito:** Compreensão dos modificadores de acesso na EVM; liberação de herança com `internal` e restrição de chamadas fora do contrato via `external`.
     - **Objetivo:** Alterar a visibilidade de `_creatZombie` de `private` para `internal` em `ZombieFactory`, permitindo que o contrato filho (`ZombieFeeding`) acesse a função para criar novos zumbis após a fusão de DNA.
-    - **Capítulo 10:** Comunicação Inter-Contratos & Interfaces (`KittyInterface`)
+  - **Capítulo 10:** Comunicação Inter-Contratos & Interfaces (`KittyInterface`)
     - **Conceito:** Abstração de contratos terceiros via Interfaces; assinatura de funções externas sem corpo de execução e suporte a múltiplos retornos em Solidity.
     - **Objetivo:** Declarar a interface `KittyInterface` com a assinatura da função `getKitty` para permitir a leitura do genoma dos CryptoKitties na blockchain sem alterar o contrato de origem.
+  - **Capítulo 11:** Instanciação de Interfaces (`KittyInterface(ckAddress`)
+    - **Conceito:** Associação do contrato-interface ao endereço físico (`address`) de um smart contract na rede Ethereum.
+    - **Objetivo:** Instanciar o objeto `kittyContract` passando a variável `ckAddress`, estabelecendo o ponteiro necessário para chamar métodos dos CryptoKitties.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -212,6 +215,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 10 Código](./assets/2_Chapter_10.png) | ![Capítulo 10 Concluído](./assets/2_Chapter_10_What_Do_Zombies_Eat_Ok.png) |
+
+#### Capítulo 11
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 11 Código](./assets/2_Chapter_11.png) | ![Capítulo 11 Concluído](./assets/2_Chapter_11_Using_An_Interface_Ok.png) |
 
 ---
 
@@ -403,6 +411,18 @@ contract KittyInterface {
         uint256 genes
     );
 }
+```
+
+### 12. Acoplamento Rígido (Hardcoding de Endereço) & Risco de Dependência (Capítulo 11) — ⚠️ PONTO DE ATENÇÃO / BOA PRÁTICA
+
+* **Vulnerabilidade / Risco:** ⚠️ **Acoplamento Rígido (Hardcoded Address):** Gravar o endereço de um contrato externo diretamente na variável (`address ckAddress = 0x06012...`) engessa o sistema. Se o projeto de terceiros (CryptoKitties) fizer uma migração para a V2 ou pausar o contrato por segurança, o nosso contrato continuará chamando o endereço antigo e ficará obsoleto ou quebrado para sempre.
+* **Mitigação / Boa Prática:** 🛡️ Em produção, o endereço de dependências externas não deve ser "cravado". Ele deve ser mantido em estado mutável e atualizado através de uma função administrativa restrita (ex: `setKittyContractAddress(address _address)` utilizando modificadores como `onlyOwner`).
+
+```solidity
+// 📌 INSTANCIAÇÃO (Capítulo 11): Apontando a interface para o endereço da rede
+address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+KittyInterface kittyContract = KittyInterface(ckAddress);
+
 ```
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
