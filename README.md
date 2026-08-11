@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 9 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 10
-- **Foco Atual:** Visibilidade de funções estendidas (`internal`e `external`), correção de acesso em arquiteturas herdadas e controle de encapsulamento.
+- **Fase Atual:** Lição 2 - Capítulo 10 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 11
+- **Foco Atual:** Comunicação inter-contratos, criação de interfaces (`interface` / `contract`), assinaturas de funções externas e retorno de múltiplos valores.
 
 ---
 
@@ -161,6 +161,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 9:** Mais sobre visibilidade de funções (`internal` & `external`)  
     - **Conceito:** Compreensão dos modificadores de acesso na EVM; liberação de herança com `internal` e restrição de chamadas fora do contrato via `external`.
     - **Objetivo:** Alterar a visibilidade de `_creatZombie` de `private` para `internal` em `ZombieFactory`, permitindo que o contrato filho (`ZombieFeeding`) acesse a função para criar novos zumbis após a fusão de DNA.
+    - **Capítulo 10:** Comunicação Inter-Contratos & Interfaces (`KittyInterface`)
+    - **Conceito:** Abstração de contratos terceiros via Interfaces; assinatura de funções externas sem corpo de execução e suporte a múltiplos retornos em Solidity.
+    - **Objetivo:** Declarar a interface `KittyInterface` com a assinatura da função `getKitty` para permitir a leitura do genoma dos CryptoKitties na blockchain sem alterar o contrato de origem.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -204,6 +207,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 9 Código](./assets/2_Chapter_9.png) | ![Capítulo 9 Concluído](./assets/2_Chapter_9_More_On_Function_Visibility_Ok.png) |
+
+#### Capítulo 10
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 10 Código](./assets/2_Chapter_10.png) | ![Capítulo 10 Concluído](./assets/2_Chapter_10_What_Do_Zombies_Eat_Ok.png) |
 
 ---
 
@@ -298,8 +306,9 @@ ownerZombieCount[msg.sender]++;
 * **Ganho de Segurança & Regra de Negócio:**
   - Se um usuário tentar invocar a criação do zumbi inicial uma segunda vez, a condição do `require` retornará `false`, interrompendo e revertendo a transação imediatamente, protegendo o contrato de spam e acúmulo desordenado de estado.
 
- 🔒 **SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador**
-  ```solidity
+```solidity
+ //🔒 SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador
+  
  function createRandomZombie(string memory _name) public {
      require(ownerZombieCount[msg.sender] == 0);
      uint randDna = _generateRandomDna(_name);
@@ -367,6 +376,32 @@ function _createZombie(string memory _name, uint _dna) internal {
     zombieToOwner[id] = msg.sender;
     ownerZombieCount[msg.sender]++;
     emit NewZombie(id, _name, _dna);
+}
+```
+
+### 11. Integração com Contratos Externos via Interfaces (Capítulo 10) — 🟢 BOA PRÁTICA APLICADA
+
+* **Padrão Utilizado:** Definição de Interfaces para Contratos Terceiros (*Interface Abstraction Pattern*).
+* **Análise Técnica:** No Capítulo 10, criou-se a `KittyInterface` para permitir que o contrato `ZombieFeeding` consulte a função `getKitty` de um contrato externo (CryptoKitties). Ao declarar apenas a assinatura da função (encerrando com `;`), o compilador entende como instanciar a comunicação em tempo de execução.
+* **Ganho de Arquitetura & Interoperabilidade:**
+  * **Interoperabilidade Web3:** Permite ler e manipular dados de contratos que não nos pertencem e que já estão publicados na rede Ethereum (como os CryptoKitties).
+  * **Economia de Estado:** Não é necessário copiar o código completo do contrato externo para o nosso projeto, mantendo a compilação leve e focada apenas nos métodos de interesse.
+
+```solidity
+// 🐱 INTERFACE (Capítulo 10): Esqueleto de comunicação com o contrato CryptoKitties
+contract KittyInterface {
+    function getKitty(uint256 _id) external view returns (
+        bool isGestating,
+        bool isReady,
+        uint256 cooldownIndex,
+        uint256 nextActionAt,
+        uint256 siringWithId,
+        uint256 birthTime,
+        uint256 matronId,
+        uint256 sireId,
+        uint256 generation,
+        uint256 genes
+    );
 }
 ```
 
