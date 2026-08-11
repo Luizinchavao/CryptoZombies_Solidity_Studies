@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 7 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 8
-- **Foco Atual:** Localização de dados (`storage` vs `memory`), validação de propriedade de ativos (`require`) e início do cálculo de fusão de DNA.
+- **Fase Atual:** Lição 2 - Capítulo 8 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 9
+- **Foco Atual:** Operações aritméticas em DNA, operador resto da divisão (`%`), fusão de atributos de zumbis e análise de escopo de visibilidade em herança. 
 
 ---
 
@@ -153,8 +153,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
     - **Conceito:** Modularização do projeto através da separação de contratos em múltiplos arquivos `.sol`.
     - **Objetivo:** Criar o arquivo `zombiefeeding.sol`, importar a base do `zombiefactory.sol` via `import "./zombiefactory.sol";` e definir a herança `ZombieFeeding is ZombieFactory`.
   - **Capítulo 7:** Storage vs Memory e Controle de Acesso
-    -  **Conceito:** Compreensão da diferença entre alocação de memória permanente (`storage` - ponteiro    direto para o estado global da blockchain) e temporária (`memory` - memória descartável durante a execução da transação), além da implementação de travas de propriedade via `require`.
+    - **Conceito:** Compreensão da diferença entre alocação de memória permanente (`storage` - ponteiro    direto para o estado global da blockchain) e temporária (`memory` - memória descartável durante a execução da transação), além da implementação de travas de propriedade via `require`.
     -  **Objetivo:** Criar a estrutura da função `feedAndMultiply`, garantindo que apenas o proprietário legítimo de um zumbi possa executá-la (`require(msg.sender == zombieToOwner[_zombieId])`) e instanciar um ponteiro `storage` para o zumbi selecionado.
+  - **Capítulo 8:** DNA Zumbi e fusão de atributos
+    - **Conceito:** Aplicação de operações aritméticas e do operador de módulo (`%`) para truncamento de limites numéricos (garantindo 16 dígitos), além do cálculo de média ponderada de atributos e reaproveitamento de métodos herdados.
+    - **Objetivo:** Truncar o `_targetDna` com `dnaModulus`, calcular a média entre `myZombie.dna` e `_targetDna` para gerar o `newDna`, e invocar a função `_createZombie("NoName", newDna)` para gerar o novo zumbi.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -187,7 +190,12 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 #### Capítulo 7
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
-| ![Capítulo 7 Código](./assets/2_Chapter_7.png) | ![Capítulo 7 Concluído](./assets/2_Chapter_7_Storage_Vs_Memory_Data_Location_Ok.jpg) |
+| ![Capítulo 7 Código](./assets/2_Chapter_7.png) | ![Capítulo 7 Concluído](./assets/2_Chapter_7_Storage_Vs_Memory_Data_Location_Ok.png) |
+
+#### Capítulo 8 
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 8 Código](./assets/2_Chapter_8.png) | ![Capítulo 8 Concluído](./assets/2_Chapter_8_Zombie_DNA.png) |
 
 ---
 
@@ -318,6 +326,25 @@ function feedAndMultiply(uint _zombieId, uint _targetDna) public {
     
     // 📌 Ponteiro de estado direto no Storage (preparando para alteração de DNA no Cap. 8)
     Zombie storage myZombie = zombies[_zombieId];
+}
+```
+
+
+### 10. Restrição Incômoda de Visibilidade por Herança (`private` vs `internal`) (Capítulo 8)
+
+* **Vulnerabilidade / Falha de Arquitetura:** ⚠️ **Encapsulamento Excessivo / Herança Bloqueada:** Tentar invocar funções privadas (`private`) da classe pai a partir de um contrato filho herdado. A função `_createZombie` foi definida como `private` em `ZombieFactory`, impedindo que o contrato `ZombieFeeding` crie novos zumbis durante a fusão de DNA, o que gera erro de compilação.
+* **Mitigação / Boa Prática:** 🛡️ Reavaliar os modificadores de visibilidade na arquitetura modular. Quando uma função precisa ser protegida contra chamadas externas de usuários, mas precisa ser herdada e executada por contratos filhos, deve-se utilizar a visibilidade `internal` no lugar de `private`.
+
+```solidity
+function feedAndMultiply(uint _zombieId, uint _targetDna) public {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    Zombie storage myZombie = zombies[_zombieId];
+    
+    _targetDna = _targetDna % dnaModulus;
+    uint newDna = (myZombie.dna + _targetDna) / 2;
+    
+    // ⚠️ Requer que _createZombie seja 'internal' na classe pai para compilar
+    _createZombie("NoName", newDna);
 }
 ```
 
