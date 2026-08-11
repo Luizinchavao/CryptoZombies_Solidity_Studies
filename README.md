@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 8 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 9
-- **Foco Atual:** Operações aritméticas em DNA, operador resto da divisão (`%`), fusão de atributos de zumbis e análise de escopo de visibilidade em herança. 
+- **Fase Atual:** Lição 2 - Capítulo 9 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 10
+- **Foco Atual:** Visibilidade de funções estendidas (`internal`e `external`), correção de acesso em arquiteturas herdadas e controle de encapsulamento.
 
 ---
 
@@ -158,6 +158,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 8:** DNA Zumbi e fusão de atributos
     - **Conceito:** Aplicação de operações aritméticas e do operador de módulo (`%`) para truncamento de limites numéricos (garantindo 16 dígitos), além do cálculo de média ponderada de atributos e reaproveitamento de métodos herdados.
     - **Objetivo:** Truncar o `_targetDna` com `dnaModulus`, calcular a média entre `myZombie.dna` e `_targetDna` para gerar o `newDna`, e invocar a função `_createZombie("NoName", newDna)` para gerar o novo zumbi.
+  - **Capítulo 9:** Mais sobre visibilidade de funções (`internal` & `external`)  
+    - **Conceito:** Compreensão dos modificadores de acesso na EVM; liberação de herança com `internal` e restrição de chamadas fora do contrato via `external`.
+    - **Objetivo:** Alterar a visibilidade de `_creatZombie` de `private` para `internal` em `ZombieFactory`, permitindo que o contrato filho (`ZombieFeeding`) acesse a função para criar novos zumbis após a fusão de DNA.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -196,6 +199,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 8 Código](./assets/2_Chapter_8.png) | ![Capítulo 8 Concluído](./assets/2_Chapter_8_Zombie_DNA.png) |
+
+#### Capítulo 9
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 9 Código](./assets/2_Chapter_9.png) | ![Capítulo 9 Concluído](./assets/2_Chapter_9_More_On_Function_Visibility_Ok.png) |
 
 ---
 
@@ -280,7 +288,9 @@ function _createZombie(string memory _name, uint _dna) private {
 // 🔒 AUTÊNTICO (Capítulo 3): Atribuição segura ao remetente da transação
 zombieToOwner[id] = msg.sender;
 ownerZombieCount[msg.sender]++;
+
 ```
+
 ### 7. Validação de Execução & Mitigação por Carteira (Lição 2 - Capítulo 4) — 🟢 RESOLVIDO
 * **Status:** **Mitigado / Resolvido**
 * **Padrão Utilizado:** Trava de Validação com `require`.
@@ -288,14 +298,14 @@ ownerZombieCount[msg.sender]++;
 * **Ganho de Segurança & Regra de Negócio:**
   - Se um usuário tentar invocar a criação do zumbi inicial uma segunda vez, a condição do `require` retornará `false`, interrompendo e revertendo a transação imediatamente, protegendo o contrato de spam e acúmulo desordenado de estado.
 
-> 🔒 **SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador**
-> ```solidity
-> function createRandomZombie(string memory _name) public {
->     require(ownerZombieCount[msg.sender] == 0);
->     uint randDna = _generateRandomDna(_name);
->     _createZombie(_name, randDna);
-> }
-> ```
+ 🔒 **SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador**
+  ```solidity
+ function createRandomZombie(string memory _name) public {
+     require(ownerZombieCount[msg.sender] == 0);
+     uint randDna = _generateRandomDna(_name);
+     _createZombie(_name, randDna);
+ }
+ ```
 
 ### 8. Arquitetura Modular e Superfície de Ataque por Herança
 
@@ -327,8 +337,8 @@ function feedAndMultiply(uint _zombieId, uint _targetDna) public {
     // 📌 Ponteiro de estado direto no Storage (preparando para alteração de DNA no Cap. 8)
     Zombie storage myZombie = zombies[_zombieId];
 }
-```
 
+```
 
 ### 10. Restrição Incômoda de Visibilidade por Herança (`private` vs `internal`) (Capítulo 8)
 
@@ -345,6 +355,18 @@ function feedAndMultiply(uint _zombieId, uint _targetDna) public {
     
     // ⚠️ Requer que _createZombie seja 'internal' na classe pai para compilar
     _createZombie("NoName", newDna);
+}
+```
+
+* **Ação Corretiva & Mitigação (Capítulo 9):** 🟢 **Ajuste para Visibilidade Internal:** A visibilidade de `_createZombie` foi alterada de `private` para `internal` no contrato pai (`ZombieFactory`). Isso manteve a função protegida contra chamadas públicas diretas de carteiras externas, enquanto liberou o acesso para que contratos filhos (como `ZombieFeeding`) executem a criação de zumbis após a fusão de DNA.
+
+```solidity
+// 🔒 CORRIGIDO NO CAPÍTULO 9 (em zombiefactory.sol): Visibilidade internal liberando a herança
+function _createZombie(string memory _name, uint _dna) internal {
+    uint id = zombies.push(Zombie(_name, _dna)) - 1;
+    zombieToOwner[id] = msg.sender;
+    ownerZombieCount[msg.sender]++;
+    emit NewZombie(id, _name, _dna);
 }
 ```
 
