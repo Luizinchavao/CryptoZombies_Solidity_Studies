@@ -8,9 +8,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 12 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 13
-- **Foco Atual:** Desestruturação de múltiplos retornos em Solidity e chamadas inter-contratos (Inter-Contract Calls).
+- **Fase Atual:** Lição 2 - Capítulo 13 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 14
+- **Foco Atual:** Estruturas condicionais (`if`), comparação de strings via `keccak256` e manipulação aritmética de DNA.
+
 
 ---
 
@@ -170,6 +171,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 12:** Lidando com Múltiplos Valores de Retorno
     - **Conceito:** Manipulação e desestruturação de múltiplos valores retornados por uma função externa (tuplas), utilizando a sintaxe de vírgulas `(,,,,,,,,,val)` para ignorar os dados desnecessários na memória.
     - **Objetivo:** Criar a função `feedOnKitty` para consultar os genes do CryptoKitty via `kittyContract.getKitty()` e repassar o resultado para `feedAndMultiply`.
+  - **Capítulo 13:** Bônus: Genes de Gatinho (Estruturas Condicionais & String Hashing)
+    - **Conceito:** Controle de fluxo com `if`, comparação de strings via hash Keccak-256 (`keccak256(abi.encodePacked(...))`) e manipulação aritmética de DNA com módulo (`%`).
+    - **Objetivo:** Atualizar a função `feedAndMultiply` para aceitar a string `_species`, verificar se a vítima é da espécie `"kitty"` e alterar os últimos 2 dígitos do DNA para `99`.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
@@ -229,6 +233,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 12 Código](./assets/2_Chapter_12.png) | ![Capítulo 12 Concluído](./assets/2_Chapter_12_Handling_Multiple_Return_Values_Ok.png) |
+
+#### Capítulo 13
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 13 Código](./assets/2_Chapter_13.png) | ![Capítulo 13 Concluído](./assets/2_Chapter_13_Bonus_Kitty_Genes_Ok.png) |
 
 ---
 
@@ -445,6 +454,24 @@ function feedOnKitty(uint _zombieId, uint _kittyId) public {
 }
 ```
 
+### 14. Comparação de Strings via Keccak256 e Custo de Gás em `abi.encodePacked` (Lição 2 - Capítulo 13) — 🟢 BOA PRÁTICA / ⚠️ PONTO DE ATENÇÃO
+* **Padrão Utilizado:** Hash de Comparação Dinâmica com `keccak256` e `abi.encodePacked`.
+* **Análise Técnica:** Em Solidity, tipos complexos como `string` não possuem suporte nativo ao operador `==`. Para validar se `_species == "kitty"`, o contrato empacota os bytes da string na memória via `abi.encodePacked` e gera um hash fixo de 32 bytes via `keccak256`.
+
+* **Análise de Segurança & Auditoria:**
+
+  - **Integridade da Comparação:** Garantia de que strings exatamente idênticas sempre resultarão no mesmo hash na EVM, permitindo controle de fluxo condicional seguro sem colisão simples.
+
+  - **Vulnerabilidade de Colisão em Múltiplos Parâmetros Dinâmicos (Alerta de Auditoria):** O uso de `abi.encodePacked` com mais de um tipo dinâmico não delimitado (ex: duas `strings` seguidas) pode gerar colisões de hash (*Hash Collision Vulnerability*). No nosso caso, como estamos empacotando apenas uma única string `_species`, a implementação é segura.
+
+  - **Eficiência de Gas:** Lidar com `string memory` e codificação de bytes consome mais gás do que manipular tipos primitivos inteiros (`uint8` ou `enum`). Em contratos de alta escala, o ideal para indicar tipos/espécies seria o uso de `enum` ou `uint8` em vez de strings arbitrárias.
+
+```solidity
+// 🛡️ COMPARAÇÃO DE STRINGS SEGURA (Capítulo 13)
+if (keccak256(abi.encodePacked(_species)) == keccak256(abi.encodePacked("kitty"))) {
+    newDna = newDna - newDna % 100 + 99;
+}
+```
 ---
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
