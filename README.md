@@ -8,12 +8,12 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 13 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 14
-- **Foco Atual:** Estruturas condicionais (`if`), comparação de strings via `keccak256` e manipulação aritmética de DNA.
-
+- **Fase Atual:** Lição 3 - Capítulo 1 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 2
+- **Foco Atual:** Imutabilidade de contratos inteligentes e gerenciamento dinâmico de endereços externos.
 
 ---
+
 
 ## 📸 Registro de Progresso
 
@@ -175,7 +175,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
     - **Conceito:** Controle de fluxo com `if`, comparação de strings via hash Keccak-256 (`keccak256(abi.encodePacked(...))`) e manipulação aritmética de DNA com módulo (`%`).
     - **Objetivo:** Atualizar a função `feedAndMultiply` para aceitar a string `_species`, verificar se a vítima é da espécie `"kitty"` e alterar os últimos 2 dígitos do DNA para `99`.
 
-- **Status:** Lição 2 Em Andamento ⏳
+- **Status:** Lição 2 Concluída! 🎉
 
 ---
 
@@ -251,9 +251,31 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
+---
+
+### 🧠 Lição 3: Conceitos Avançados de Solidity
+- **Tópicos:**
+  - **Capítulo 1:** Imutabilidade dos Contratos & Dependências Externas
+    - **Conceito:** Compreensão do caráter imutável dos contratos em blockchain e técnicas para evitar acoplamento rígido de endereços (*hardcoding*).
+    - **Objetivo:** Remover o endereço fixo do CryptoKitties e criar a função `setKittyContractAddress` para permitir atualizações dinâmicas da interface do contrato externo.
+
+- **Status:** Lição 3 Em Andamento ⏳
+
+---
+
+#### Capítulo 1
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 1 Código](./assets/3_Chapter_1.png) | ![Capítulo 1 Concluído](./assets/3_Chapter_1_Immutability_Of_Contracts_Ok.png) |
+
+---
+
 ## 🛡️ Notas de Auditoria & Segurança
 
-> **Relatório de Análise — Lição 1 (Capítulos 8, 9, 11, 12 e 13) e Lição 2 (Capítulos 3 e 4)** 
+> **Relatório de Análise**
+  **Lição 1 (Capítulos 8, 9, 11, 12 e 13)**
+  **Lição 2 (Capítulos 3, 4, 7, 8, 10, 11, 12 e 13 )** 
+  **Lição 3 (Capítulo 1)** 
 
 ### 1. Vulnerabilidade de Controle de Acesso (Capítulo 8) — ⚠️ IDENTIFICADO
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
@@ -401,7 +423,7 @@ function feedAndMultiply(uint _zombieId, uint _targetDna) public {
 }
 ```
 
-* **Ação Corretiva & Mitigação (Capítulo 9):** 🟢 **Ajuste para Visibilidade Internal:** A visibilidade de `_createZombie` foi alterada de `private` para `internal` no contrato pai (`ZombieFactory`). Isso manteve a função protegida contra chamadas públicas diretas de carteiras externas, enquanto liberou o acesso para que contratos filhos (como `ZombieFeeding`) executem a criação de zumbis após a fusão de DNA.
+* **Ação Corretiva & Mitigação (Lição 2 - Capítulo 9):** 🟢 **Ajuste para Visibilidade Internal:** A visibilidade de `_createZombie` foi alterada de `private` para `internal` no contrato pai (`ZombieFactory`). Isso manteve a função protegida contra chamadas públicas diretas de carteiras externas, enquanto liberou o acesso para que contratos filhos (como `ZombieFeeding`) executem a criação de zumbis após a fusão de DNA.
 
 ```solidity
 // 🔒 CORRIGIDO NO CAPÍTULO 9 (em zombiefactory.sol): Visibilidade internal liberando a herança
@@ -450,7 +472,7 @@ address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
 KittyInterface kittyContract = KittyInterface(ckAddress);
 ```
 
-### 13. Desestruturação de Múltiplos Retornos & Validação de Entrada (Capítulo 12) — ⚠️ PONTO DE ATENÇÃO
+### 13. Desestruturação de Múltiplos Retornos & Validação de Entrada (Lição 2 - Capítulo 12) — ⚠️ PONTO DE ATENÇÃO
 
 * **Conceito Técnico:** Em Solidity, ao consumir chamadas externas com múltiplos valores de retorno (como a `getKitty`), a desestruturação permite omitir variáveis indesejadas `(,,,,,,,,,kittyDna)` reduzindo o consumo desnecessário de memória de pilha (*stack space*).
 * **Vulnerabilidade / Risco de Arquitetura:** A função `feedOnKitty` é exposta como `public` sem validar a autoria do `_zombieId` antes de invocar a chamada externa. Embora o `require` de checagem esteja dentro de `feedAndMultiply`, chamadas externas consumindo *gás* e *recursos* devem falhar o quanto antes (*Fail-Early*) para evitar execuções desnecessárias.
@@ -481,6 +503,22 @@ function feedOnKitty(uint _zombieId, uint _kittyId) public {
 if (keccak256(abi.encodePacked(_species)) == keccak256(abi.encodePacked("kitty"))) {
     newDna = newDna - newDna % 100 + 99;
 }
+```
+
+### 15. Dependências Externas Dinâmicas e Falha de Controle de Acesso em Setters (Lição 3 - Capítulo 1) — ⚠️ IDENTIFICADO / CRÍTICO
+* **Padrão Utilizado:** Injeção Dinâmica do Endereço do Contrato Externo via Função Setter.
+* **Análise Técnica:** O código contorna a imutabilidade do bytecode removendo o valor fixado (*hardcoded*) e permitindo alterar o endereço de `kittyContract` via chamada à função `setKittyContractAddress`.
+* **Vulnerabilidade Identificada (Falta de Modificador de Acesso):** 
+  - A função foi declarada como `external` sem travas de propriedade (como `onlyOwner`). 
+  - **Risco:** Qualquer usuário da rede Ethereum pode redefinir o contrato de CryptoKitties para um contrato malicioso sob seu controle, sequestrando a lógica de negócios da aplicação.
+* **Mitigação Requerida:** Restringir a execução de setters críticos exclusivamente ao dono do contrato (*Owner*) por meio de padrões de controle de acesso (ex: OpenZeppelin `Ownable`).
+
+```solidity
+// ⚠️ VULNERÁVEL (Capítulo 1): Qualquer conta pode redefinir o contrato externo
+function setKittyContractAddress(address _address) external {
+  kittyContract = KittyInterface(_address);
+}
+
 ```
 ---
 
