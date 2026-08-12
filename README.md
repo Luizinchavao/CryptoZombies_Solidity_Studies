@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 2 - Capítulo 11 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 12
-- **Foco Atual:** Instanciação de interface on-chain, passagem de endereços (`address`) e preparação para consumo de contratos externos
+- **Fase Atual:** Lição 2 - Capítulo 12 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 13
+- **Foco Atual:** Desestruturação de múltiplos retornos em Solidity e chamadas inter-contratos (Inter-Contract Calls).
 
 ---
 
@@ -33,7 +33,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
   - **Capítulo 5:** Estruturas de Dados (`struct`)
     - **Conceito:** Criação de tipos de dados personalizados complexos.
     - **Objetivo:** Modelar a estrutura `Zombie` composta por atributos de nome (`string`) e DNA (`uint`).
-  - **Capítulo 6:** Arrays Dynamicos e Públicos (`arrays`)
+  - **Capítulo 6:** Arrays Dinâmicos e Públicos (`arrays`)
     - **Conceito:** Coleções de dados dinâmicas e geração automática de funções getter de leitura com o modificador `public`.
     - **Objetivo:** Criar o array dinâmico e público `zombies` para armazenar a lista global de zumbis do jogo.
   - **Capítulo 7:** Declarações de Funções & Escopo de Memória
@@ -153,23 +153,27 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
     - **Conceito:** Modularização do projeto através da separação de contratos em múltiplos arquivos `.sol`.
     - **Objetivo:** Criar o arquivo `zombiefeeding.sol`, importar a base do `zombiefactory.sol` via `import "./zombiefactory.sol";` e definir a herança `ZombieFeeding is ZombieFactory`.
   - **Capítulo 7:** Storage vs Memory e Controle de Acesso
-    - **Conceito:** Compreensão da diferença entre alocação de memória permanente (`storage` - ponteiro    direto para o estado global da blockchain) e temporária (`memory` - memória descartável durante a execução da transação), além da implementação de travas de propriedade via `require`.
-    -  **Objetivo:** Criar a estrutura da função `feedAndMultiply`, garantindo que apenas o proprietário legítimo de um zumbi possa executá-la (`require(msg.sender == zombieToOwner[_zombieId])`) e instanciar um ponteiro `storage` para o zumbi selecionado.
+    - **Conceito:** Compreensão da diferença entre alocação de memória permanente (`storage` - ponteiro direto para o estado global da blockchain) e temporária (`memory` - memória descartável durante a execução da transação), além da implementação de travas de propriedade via `require`.
+    - **Objetivo:** Criar a estrutura da função `feedAndMultiply`, garantindo que apenas o proprietário legítimo de um zumbi possa executá-la (`require(msg.sender == zombieToOwner[_zombieId])`) e instanciar um ponteiro `storage` para o zumbi selecionado.
   - **Capítulo 8:** DNA Zumbi e fusão de atributos
     - **Conceito:** Aplicação de operações aritméticas e do operador de módulo (`%`) para truncamento de limites numéricos (garantindo 16 dígitos), além do cálculo de média ponderada de atributos e reaproveitamento de métodos herdados.
     - **Objetivo:** Truncar o `_targetDna` com `dnaModulus`, calcular a média entre `myZombie.dna` e `_targetDna` para gerar o `newDna`, e invocar a função `_createZombie("NoName", newDna)` para gerar o novo zumbi.
   - **Capítulo 9:** Mais sobre visibilidade de funções (`internal` & `external`)  
     - **Conceito:** Compreensão dos modificadores de acesso na EVM; liberação de herança com `internal` e restrição de chamadas fora do contrato via `external`.
-    - **Objetivo:** Alterar a visibilidade de `_creatZombie` de `private` para `internal` em `ZombieFactory`, permitindo que o contrato filho (`ZombieFeeding`) acesse a função para criar novos zumbis após a fusão de DNA.
+    - **Objetivo:** Alterar a visibilidade de `_createZombie` de `private` para `internal` em `ZombieFactory`, permitindo que o contrato filho (`ZombieFeeding`) acesse a função para criar novos zumbis após a fusão de DNA.
   - **Capítulo 10:** Comunicação Inter-Contratos & Interfaces (`KittyInterface`)
     - **Conceito:** Abstração de contratos terceiros via Interfaces; assinatura de funções externas sem corpo de execução e suporte a múltiplos retornos em Solidity.
     - **Objetivo:** Declarar a interface `KittyInterface` com a assinatura da função `getKitty` para permitir a leitura do genoma dos CryptoKitties na blockchain sem alterar o contrato de origem.
-  - **Capítulo 11:** Instanciação de Interfaces (`KittyInterface(ckAddress`)
+  - **Capítulo 11:** Instanciação de Interfaces (`KittyInterface(ckAddress)`)
     - **Conceito:** Associação do contrato-interface ao endereço físico (`address`) de um smart contract na rede Ethereum.
     - **Objetivo:** Instanciar o objeto `kittyContract` passando a variável `ckAddress`, estabelecendo o ponteiro necessário para chamar métodos dos CryptoKitties.
+  - **Capítulo 12:** Lidando com Múltiplos Valores de Retorno
+    - **Conceito:** Manipulação e desestruturação de múltiplos valores retornados por uma função externa (tuplas), utilizando a sintaxe de vírgulas `(,,,,,,,,,val)` para ignorar os dados desnecessários na memória.
+    - **Objetivo:** Criar a função `feedOnKitty` para consultar os genes do CryptoKitty via `kittyContract.getKitty()` e repassar o resultado para `feedAndMultiply`.
 
 - **Status:** Lição 2 Em Andamento ⏳
 
+---
 
 #### Capítulo 2
 | Código Desenvolvido | Lição Concluída |
@@ -221,6 +225,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 11 Código](./assets/2_Chapter_11.png) | ![Capítulo 11 Concluído](./assets/2_Chapter_11_Using_An_Interface_Ok.png) |
 
+#### Capítulo 12
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 12 Código](./assets/2_Chapter_12.png) | ![Capítulo 12 Concluído](./assets/2_Chapter_12_Handling_Multiple_Return_Values_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
@@ -269,7 +278,7 @@ function _generateRandomDna(string memory _str) private view returns (uint) {
 * **Análise Técnica:** No Capítulo 12, a função `createRandomZombie` é criada como o único ponto de entrada público (`public`) para a criação de zumbis.
 * **Ganho de Segurança & Integridade:**
   - Ao encapsular `_generateRandomDna` e `_createZombie` como funções privadas, o contrato impede que usuários externos enviem valores arbitrários de DNA (evitando a injeção manual de parâmetros).
-  - O contrato impõe um fluxo de execução rígido e controlado: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
+  - O contrato impõe um fluxo de execução rígido e controlled: **Nome digitado ➡️ Geração Interna de DNA ➡️ Armazenamento no Estado**.
 
 ```solidity
 // 🏛️ ARQUITETURA SEGURA (Capítulo 12): Interface pública controlando o fluxo interno
@@ -295,16 +304,16 @@ function _createZombie(string memory _name, uint _dna) private {
     emit NewZombie(id, _name, _dna);
 }
 ```
+
 ### 6. Autenticidade de Identidade & Ausência de Trava por Carteira (Lição 2 - Capítulo 3) — 🟢 BOA PRÁTICA / ⚠️ PONTO DE ATENÇÃO
-* **Padrão Utilizado:** Identificação Imutável via `` `msg.sender` ``.
-* **Análise Técnica:** O uso de `` `msg.sender` `` no registro de posse (`zombieToOwner[id] = msg.sender`) garante a autenticidade da transação. Criptograficamente, é impossível uma carteira se passar por outra sem possuir a chave privada correspondente.
-* **Ponto de Atenção Identificado (Regra de Negócio / Rate Limiting):** A função pública `createRandomZombie` ainda não possui verificação (`require`) de zumbis existentes por carteira. Um mesmo `` `msg.sender` `` pode invocar a criação de zumbis ilimitadas vezes, inflando o estado `ownerZombieCount` e acumulando zumbis sem restrição.
+* **Padrão Utilizado:** Identificação Imutável via `msg.sender`.
+* **Análise Técnica:** O uso de `msg.sender` no registro de posse (`zombieToOwner[id] = msg.sender`) garante a autenticidade da transação. Criptograficamente, é impossível uma carteira se passar por outra sem possuir a chave privada correspondente.
+* **Ponto de Atenção Identificado (Regra de Negócio / Rate Limiting):** A função pública `createRandomZombie` ainda não possui verificação (`require`) de zumbis existentes por carteira. Um mesmo `msg.sender` pode invocar a criação de zumbis ilimitadas vezes, inflando o estado `ownerZombieCount` e acumulando zumbis sem restrição.
 
 ```solidity
 // 🔒 AUTÊNTICO (Capítulo 3): Atribuição segura ao remetente da transação
 zombieToOwner[id] = msg.sender;
 ownerZombieCount[msg.sender]++;
-
 ```
 
 ### 7. Validação de Execução & Mitigação por Carteira (Lição 2 - Capítulo 4) — 🟢 RESOLVIDO
@@ -315,14 +324,13 @@ ownerZombieCount[msg.sender]++;
   - Se um usuário tentar invocar a criação do zumbi inicial uma segunda vez, a condição do `require` retornará `false`, interrompendo e revertendo a transação imediatamente, protegendo o contrato de spam e acúmulo desordenado de estado.
 
 ```solidity
- //🔒 SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador
-  
- function createRandomZombie(string memory _name) public {
-     require(ownerZombieCount[msg.sender] == 0);
-     uint randDna = _generateRandomDna(_name);
-     _createZombie(_name, randDna);
- }
- ```
+// 🔒 SEGURANÇA & VALIDAÇÃO (Capítulo 4): Garantia de Zumbi Único por Jogador
+function createRandomZombie(string memory _name) public {
+    require(ownerZombieCount[msg.sender] == 0);
+    uint randDna = _generateRandomDna(_name);
+    _createZombie(_name, randDna);
+}
+```
 
 ### 8. Arquitetura Modular e Superfície de Ataque por Herança
 
@@ -354,7 +362,6 @@ function feedAndMultiply(uint _zombieId, uint _targetDna) public {
     // 📌 Ponteiro de estado direto no Storage (preparando para alteração de DNA no Cap. 8)
     Zombie storage myZombie = zombies[_zombieId];
 }
-
 ```
 
 ### 10. Restrição Incômoda de Visibilidade por Herança (`private` vs `internal`) (Capítulo 8)
@@ -422,8 +429,23 @@ contract KittyInterface {
 // 📌 INSTANCIAÇÃO (Capítulo 11): Apontando a interface para o endereço da rede
 address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
 KittyInterface kittyContract = KittyInterface(ckAddress);
-
 ```
+
+### 13. Desestruturação de Múltiplos Retornos & Validação de Entrada (Capítulo 12) — ⚠️ PONTO DE ATENÇÃO
+
+* **Conceito Técnico:** Em Solidity, ao consumir chamadas externas com múltiplos valores de retorno (como a `getKitty`), a desestruturação permite omitir variáveis indesejadas `(,,,,,,,,,kittyDna)` reduzindo o consumo desnecessário de memória de pilha (*stack space*).
+* **Vulnerabilidade / Risco de Arquitetura:** A função `feedOnKitty` é exposta como `public` sem validar a autoria do `_zombieId` antes de invocar a chamada externa. Embora o `require` de checagem esteja dentro de `feedAndMultiply`, chamadas externas consumindo *gás* e *recursos* devem falhar o quanto antes (*Fail-Early*) para evitar execuções desnecessárias.
+
+```solidity
+// 📌 DESESTRUTURAÇÃO (Capítulo 12): Capturando apenas o último retorno (genes)
+function feedOnKitty(uint _zombieId, uint _kittyId) public {
+    uint kittyDna;
+    (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+    feedAndMultiply(_zombieId, kittyDna);
+}
+```
+
+---
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas
 
