@@ -243,6 +243,12 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 14 Código](./assets/2_Chapter_14.png) | ![Capítulo 14 Concluído](./assets/2_Chapter_14_%20Wrapping_It_Up_Ok.png) |
+
+#### Capítulo 15
+| Código Desenvolvido | Liçao Concluída |
+| :---: | :---: |
+| ![Capítulo 15 Código](./assets/2_Chapter_15.png) | ![Capítulo 15 Concluído](./assets/2_Chapter_15_Licao_2_Concluida_Ok.png) |
+
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
