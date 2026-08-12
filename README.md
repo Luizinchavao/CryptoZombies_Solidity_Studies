@@ -239,6 +239,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 13 Código](./assets/2_Chapter_13.png) | ![Capítulo 13 Concluído](./assets/2_Chapter_13_Bonus_Kitty_Genes_Ok.png) |
 
+#### Capítulo 14
+| Código Desenvolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 14 Código](./assets/2_Chapter_14.png) | ![Capítulo 14 Concluído](./assets/2_Chapter_14_%20Wrapping_It_Up_Ok.png) |
 ---
 
 ## 🛡️ Notas de Auditoria & Segurança
