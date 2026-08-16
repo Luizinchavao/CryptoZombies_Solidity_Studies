@@ -77,3 +77,17 @@ _triggerCooldown(myZombie);
 ```
 
 ---
+
+### 🔹 Capítulo 8: Modificadores de Função com Argumentos (`modifier`)
+* **Conceito:** Criação de modificadores reutilizáveis que aceitam parâmetros dinâmicos para aplicar travas e pré-condições (*gatekeeping*) antes da execução de funções.
+* **Objetivo:** Criar o contrato `ZombieHelper` (herdeiro de `ZombieFeeding`) e definir o modificador `aboveLevel(uint _level, uint _zombieId)` para validar se o zumbi possui o nível mínimo necessário para executar ações avançadas.
+
+```solidity
+// Modificador com argumentos herdando acesso ao storage do contrato pai
+modifier aboveLevel(uint _level, uint _zombieId) {
+  require(zombies[_zombieId].level >= _level);
+  _;
+}
+```
+
+---

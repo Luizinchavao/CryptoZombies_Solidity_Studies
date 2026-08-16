@@ -8,10 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 7 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 8
-- **Foco Atual:** Validação e disparo do tempo de recarga (`_isReady` e `_triggerCooldown`) dentro da função `feedAndMultiply`.
----
+- **Fase Atual:** Capítulo 8 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 9
+- **Foco Atual:** Criação do contrato `ZombieHelper` e implementação do modificador de função `aboveLevel` com parâmetros.
 ---
 
 ## 📚 Navegação pelas Lições
@@ -265,6 +264,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 7 Código](./assets/3_Chapter_7.png) | ![Capítulo 7 Concluído](./assets/3_Chapter_7_Public_Functions_&_Security_Ok.png) |
+
+---
+
+### Capítulo 8
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 8 Código](./assets/3_Chapter_8.png) | ![Capítulo 8 Concluído](./assets/3_Chapter_8_More_On_Function_Modifiers_Ok.png) |
 
 ---
 
@@ -598,6 +604,10 @@ function feedOnKitty(uint _zombieId, uint _kittyId) public {
 * **Passagem de Structs por Referência (`storage`) no Parâmetro de Funções:**
   - **Funcionamento da EVM:** Passar uma `struct` com a palavra-chave `storage` como argumento de uma função `internal` cria uma referência de ponteiro direta para o dado persistido na blockchain. Isso evita cópias desnecessárias na memória e permite mutação direta nos campos (como `_zombie.readyTime`).
   - **Evolução de Sintaxe (Solidity 0.7.0+ / 0.8.x+):** O uso do local de dados (`storage`, `memory` ou `calldata`) tornou-se **estritamente obrigatório** para todos os parâmetros de tipos estruturados/complexos (`structs`, `arrays`, `mappings`). Em versões modernas, omitir o local de dados em parâmetros gera erro de compilação.
+
+* **Modificadores Próprios com Argumentos (*Custom Modifiers with Arguments*):**
+  - **Padrão Utilizado:** Diferente de modificadores estáticos simples (como `onlyOwner`), o Solidity permite a passagem de parâmetros dinâmicos para um `modifier` (ex: `aboveLevel(uint _level, uint _zombieId)`).
+  - **Análise Técnica:** Essa técnica permite desacoplar regras de validação de estado da lógica principal da função. A instrução `_;` funciona como um ponto de mesclagem onde o compilador injeta o corpo da função envelopada apenas se o `require` for satisfeito, reduzindo a duplicação de código entre múltiplas funções que exigem o mesmo requisito de nível.
 
 ---
 
