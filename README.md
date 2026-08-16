@@ -6,12 +6,12 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
-### 📌 Status do Projeto
+## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 6 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 7
-- **Foco Atual:** Passagem de structs por referência (`storage`) e implementação do controle de tempo de recarga (`_triggerCooldown` e `_isReady`).
-
+- **Fase Atual:** Capítulo 7 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 8
+- **Foco Atual:** Validação e disparo do tempo de recarga (`_isReady` e `_triggerCooldown`) dentro da função `feedAndMultiply`.
+---
 ---
 
 ## 📚 Navegação pelas Lições
@@ -261,6 +261,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
+### Capítulo 7
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 7 Código](./assets/3_Chapter_7.png) | ![Capítulo 7 Concluído](./assets/3_Chapter_7_Public_Functions_&_Security_Ok.png) |
+
+---
+
 ## 🛡️ Notas de Auditoria & Segurança
 
 > **Relatório de Análise**
@@ -269,7 +276,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
   **Lição 2 (Capítulos 3, 4, 5, 7, 8, 9, 10, 11, 12 e 13)**
 
-  **Lição 3 (Capítulos 1 e 2)**
+  **Lição 3 (Capítulos 1, 2 e 7)**
 
 ### 1. Vulnerabilidade de Controle de Acesso (Capítulo 8) — ⚠️ IDENTIFICADO
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
@@ -545,6 +552,31 @@ function setKittyContractAddress(address _address) external onlyOwner {
     kittyContract = KittyInterface(_address);
 }
 ```
+
+---
+
+### 18. Redução da Superfície de Ataque via Princípio do Menor Privilégio (*Least Privilege*)
+
+* **Vulnerabilidade Evitada:** Funções de regra de negócio e alteração de estado (como gerar novos zumbis e aplicar mutações de DNA) expostas como `public` permitem que qualquer carteira na rede execute chamadas diretas, contornando travas de segurança e validações de fluxo.
+* **Análise Técnica:** A exposição pública direta do processamento interno permitia chamadas arbitrárias sem passar pelas funções de entrada validadas.
+* **Mitigação Aplicada:** Alteração da visibilidade de funções de regra de negócio para `internal`, bloqueando o acesso direto externo e obrigando a execução a passar por pontos de entrada públicos (*entry points*) que validam a posse do ativo.
+
+```solidity
+// ANTES (Vulnerável): Função pública permitia chamadas externas não autorizadas
+function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) public { ... }
+
+// DEPOIS (Protegido): Função 'internal' bloqueia acesso externo direto
+function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) internal { ... }
+
+// PONTO DE ENTRADA PÚBLICO (Valida a propriedade antes de executar a lógica):
+function feedOnKitty(uint _zombieId, uint _kittyId) public {
+  require(msg.sender == zombieToOwner[_zombieId]);
+  
+  (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);
+  feedAndMultiply(_zombieId, kittyDna, "kitty");
+}
+```
+---
 
 ### 🛡️ Notas de Arquitetura e Evolução da Linguagem (Solidity 0.5.x vs 0.7.x+)
 

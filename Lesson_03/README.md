@@ -61,3 +61,19 @@ function _isReady(Zombie storage _zombie) internal view returns (bool) {
 ```
 
 ---
+
+### 🔹 Capítulo 7: Integração de Cooldowns na Alimentação
+* **Conceito:** Aplicação de travas temporais em funções de ação usando `require` combinado com funções internas de checagem (`_isReady`) e atualização de estado (`_triggerCooldown`).
+* **Objetivo:** Atualizar a função `feedAndMultiply` para exigir que o zumbi esteja pronto para agir (`require(_isReady(myZombie))`) e disparar o tempo de recarga (`_triggerCooldown(myZombie)`) ao finalizar o processo.
+
+```solidity
+// Adição da checagem e disparo de cooldown na função feedAndMultiply:
+require(_isReady(myZombie));
+
+// ... cálculo de DNA e criação do novo zumbi ...
+
+_triggerCooldown(myZombie);
+
+```
+
+---
