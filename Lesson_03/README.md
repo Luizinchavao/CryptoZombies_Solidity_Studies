@@ -91,3 +91,24 @@ modifier aboveLevel(uint _level, uint _zombieId) {
 ```
 
 ---
+
+### 🔹 Capítulo 9: Aplicação de Modificadores em Funções Externas
+* **Conceito:** Utilização de modificadores de função parametrizados para condicionar a execução de funcionalidades externas (`external`) ao cumprimento de requisitos de estado (nível do zumbi).
+* **Objetivo:** Implementar as funções `changeName` (nível mínimo 2) e `changeDna` (nível mínimo 20) no contrato `ZombieHelper`, aplicando o modificador `aboveLevel` e a verificação de propriedade do zumbi.
+
+```solidity
+// Função externa que exige nível 2 para trocar nome
+function changeName(uint _zombieId, string calldata _newName) external aboveLevel(2, _zombieId) {
+  require(msg.sender == zombieToOwner[_zombieId]);
+  zombies[_zombieId].name = _newName;
+}
+
+// Função externa que exige nível 20 para alterar DNA
+function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) {
+  require(msg.sender == zombieToOwner[_zombieId]);
+  zombies[_zombieId].dna = _newDna;
+}
+```
+
+---
+

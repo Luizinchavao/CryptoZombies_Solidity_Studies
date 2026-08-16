@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 8 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 9
-- **Foco Atual:** Criação do contrato `ZombieHelper` e implementação do modificador de função `aboveLevel` com parâmetros.
+- **Fase Atual:** Capítulo 9 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 10
+- **Foco Atual:** Aplicação do modificador `aboveLevel` nas funções `changeName` e `changeDna` no contrato `ZombieHelper`
 ---
 
 ## 📚 Navegação pelas Lições
@@ -271,6 +271,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 8 Código](./assets/3_Chapter_8.png) | ![Capítulo 8 Concluído](./assets/3_Chapter_8_More_On_Function_Modifiers_Ok.png) |
+
+---
+
+### Capítulo 9
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 9 Código](./assets/3_Chapter_9.png) | ![Capítulo 9 Concluído](./assets/3_Chapter_9_Zombie_Modifiers_Ok.png) |
 
 ---
 
