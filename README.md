@@ -8,63 +8,23 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 3 - Capítulo 1 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 2
-- **Foco Atual:** Imutabilidade de contratos inteligentes e gerenciamento dinâmico de endereços externos.
+- **Fase Atual:** Lição 3 — Capítulo 2 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 3
+- **Foco Atual:** Implementação do padrão de propriedade (*Ownable*) e restrição de funções críticas via modificadores de acesso (`onlyOwner`).
 
 ---
 
+## 📚 Navegação pelas Lições
 
-## 📸 Registro de Progresso
-
-### 🧟 Lição 1: Criando a Fábrica de Zumbis
-- **Tópicos:** 
-  - **Capítulo 1:** Visão Geral & Introdução
-    - **Conceito:** Arquitetura básica de contratos inteligentes executados na Ethereum Virtual Machine (EVM).
-    - **Objetivo:** Compreender o funcionamento do jogo interativo e a estrutura fundamental dos contratos em Solidity.
-  - **Capítulo 2:** `pragma solidity` & Declaração de Contrato
-    - **Conceito:** Versionamento de compilador e encapsulamento de código via `contract`.
-    - **Objetivo:** Definir a versão do compilador Solidity (`pragma`) e declarar a estrutura base do contrato `ZombieFactory`.
-  - **Capítulo 3:** Variáveis de Estado & Inteiros (`uint`)
-    - **Conceito:** Armazenamento persistente de dados na blockchain (*Storage*) e tipos numéricos não assinados.
-    - **Objetivo:** Definir a variável de estado `dnaDigits` para estabelecer a precisão numérica de 16 dígitos do DNA dos zumbis.
-  - **Capítulo 4:** Operações Matemáticas
-    - **Conceito:** Aritmética de precisão em Solidity (`+`, `-`, `*`, `/`, `%`) e exponenciação (`**`).
-    - **Objetivo:** Calcular o `dnaModulus` ($10^{16}$) para limitar e manipular matematicamente os valores do DNA.
-  - **Capítulo 5:** Estruturas de Dados (`struct`)
-    - **Conceito:** Criação de tipos de dados personalizados complexos.
-    - **Objetivo:** Modelar a estrutura `Zombie` composta por atributos de nome (`string`) e DNA (`uint`).
-  - **Capítulo 6:** Arrays Dinâmicos e Públicos (`arrays`)
-    - **Conceito:** Coleções de dados dinâmicas e geração automática de funções getter de leitura com o modificador `public`.
-    - **Objetivo:** Criar o array dinâmico e público `zombies` para armazenar a lista global de zumbis do jogo.
-  - **Capítulo 7:** Declarações de Funções & Escopo de Memória
-    - **Conceito:** Assinatura de funções, passagem de parâmetros e especificação de localização de dados (`memory`).
-    - **Objetivo:** Declarar a função `createZombie` com parâmetros de entrada para nome e DNA.
-  - **Capítulo 8:** Manipulação de Arrays Dinâmicos (`push`)
-    - **Conceito:** Inserção de novos elementos em arrays e gerenciamento de estado em structs.
-    - **Objetivo:** Instanciar novos objetos `Zombie` e adicioná-los ao array `zombies` via `.push()`.
-  - **Capítulo 9:** Visibilidade de Funções (`private`) & Convenções de Código
-    - **Conceito:** Restrição do controle de acesso interno e padronização de nomenclatura com o prefixo underline (`_`).
-    - **Objetivo:** Converter `createZombie` para a função privada `_createZombie`, impedindo chamadas externas não autorizadas.
-  - **Capítulo 10:** Retorno de Valores & Modificadores de Leitura (`view` / `pure`)
-    - **Conceito:** Declarações de retorno (`returns`) e otimização de execução sem alteração de estado na rede via `view`.
-    - **Objetivo:** Entender a diferença entre funções que alteram o estado da blockchain e funções de simples consulta sem custo de gás.
-  - **Capítulo 11:** Hashes & Conversão de Tipos (`keccak256` & Typecasting)
-    - **Conceito:** Geração de identificadores pseudo-aleatórios via Keccak256 e casting de tipos primitivos.
-    - **Objetivo:** Criar a função `_generateRandomDna` para transformar dados de entrada em números de 16 dígitos usando `keccak256` e o operador `%`.
-  - **Capítulo 12:** Abstração de Interfaces Públicas & Composição
-    - **Conceito:** Padrão de Fachada (*Facade Pattern*) e isolamento de fluxos de execução internos.
-    - **Objetivo:** Criar a interface pública `createRandomZombie` para unificar a geração de DNA e a criação do zumbi em uma única chamada.
-  - **Capítulo 13:** Eventos (`events`) & Logs da EVM
-    - **Conceito:** Comunicação assíncrona off-chain sem necessidade de polling constante via `emit`.
-    - **Objetivo:** Declarar e emitir o evento `NewZombie` para notificar aplicações externas quando um novo zumbi for criado.
-  - **Capítulo 14:** Integração Web3.js & Frontend
-    - **Conceito:** Conexão entre o Smart Contract e a camada de interface do usuário via JavaScript.
-    - **Objetivo:** Escutar eventos disparados pela blockchain para capturar dados em tempo real e renderizar o zumbi dinamicamente na tela.
-
-- **Status:** Lição 1 Concluída! 🎉
+- 🧟 **[Lição 1: Criando a Fábrica de Zumbis](./Lesson_01/)** — *Concluída 🚀*
+- ⚔️ **[Lição 2: Zumbis Atacam Suas Vítimas](./Lesson_02/)** — *Concluída 🚀*
+- 🧠 **[Lição 3: Conceitos Avançados de Solidity](./Lesson_03/)** — *Em Andamento ⏳*
 
 ---
+
+## 📸 Galeria de Imagens & Progresso
+
+### 🖼️ Lesson 01: Criando a Fábrica de Zumbis
 
 #### Capítulo 2
 | Código Desenvolvido | Lição Concluída |
@@ -133,51 +93,7 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
-### ⚔️ Lição 2: Zumbis Atacam Suas Vítimas
-- **Tópicos:**
-  - **Capítulo 1:** Arquitetura Multiplayer & Propriedade de Ativos
-    - **Conceito:** Visão geral sobre gerenciamento de estado distribuído para suporte a múltiplos usuários concorrentes.
-    - **Objetivo:** Estruturar a lógica do jogo para atribuir a posse individual de cada ativo (zumbi) à carteira do seu criador.
-  - **Capítulo 2:** Mapeamentos (`mapping`) e Endereços (`address`)
-    - **Conceito:** Associação de posse de ativos através de endereços da Ethereum (160 bits) e busca performática via chave-valor.
-    - **Objetivo:** Mapear qual carteira é dona de qual zumbi (`zombieToOwner`) e quantos zumbis um endereço possui (`ownerZombieCount`).
-  - **Capítulo 3:** Remetente da Mensagem (`msg.sender`) & Registro de Propriedade
-    - **Conceito:** Identificação criptográfica do remetente da transação através da variável global `msg.sender`.
-    - **Objetivo:** Vincular a propriedade do zumbi recém-criado à carteira do chamador (`zombieToOwner[id] = msg.sender`) e incrementar seu saldo (`ownerZombieCount[msg.sender]++`).
-  - **Capítulo 4:** Validações de Estado & Trava de Execução (`require`)
-    - **Conceito:** Interrupção de fluxo de execução e reversão de transação (*revert*) para validação de regras de negócio.
-    - **Objetivo:** Garantir que cada jogador só possa criar 1 zumbi inicial limitando a execução da função `createRandomZombie` via `require(ownerZombieCount[msg.sender] == 0)`.
-  - **Capítulo 5:** Herança de Contratos (`is`)
-    - **Conceito:** Modularização do código através da relação de herança entre contratos inteligentes.
-    - **Objetivo:** Criar o contrato `ZombieFeeding` herdando todas as estruturas, variáveis e funções de `ZombieFactory` utilizando a palavra-chave `is`. 
-  - **Capítulo 6:** Importação de Arquivos (`import`)
-    - **Conceito:** Modularização do projeto através da separação de contratos em múltiplos arquivos `.sol`.
-    - **Objetivo:** Criar o arquivo `zombiefeeding.sol`, importar a base do `zombiefactory.sol` via `import "./zombiefactory.sol";` e definir a herança `ZombieFeeding is ZombieFactory`.
-  - **Capítulo 7:** Storage vs Memory e Controle de Acesso
-    - **Conceito:** Compreensão da diferença entre alocação de memória permanente (`storage` - ponteiro direto para o estado global da blockchain) e temporária (`memory` - memória descartável durante a execução da transação), além da implementação de travas de propriedade via `require`.
-    - **Objetivo:** Criar a estrutura da função `feedAndMultiply`, garantindo que apenas o proprietário legítimo de um zumbi possa executá-la (`require(msg.sender == zombieToOwner[_zombieId])`) e instanciar um ponteiro `storage` para o zumbi selecionado.
-  - **Capítulo 8:** DNA Zumbi e fusão de atributos
-    - **Conceito:** Aplicação de operações aritméticas e do operador de módulo (`%`) para truncamento de limites numéricos (garantindo 16 dígitos), além do cálculo de média ponderada de atributos e reaproveitamento de métodos herdados.
-    - **Objetivo:** Truncar o `_targetDna` com `dnaModulus`, calcular a média entre `myZombie.dna` e `_targetDna` para gerar o `newDna`, e invocar a função `_createZombie("NoName", newDna)` para gerar o novo zumbi.
-  - **Capítulo 9:** Mais sobre visibilidade de funções (`internal` & `external`)  
-    - **Conceito:** Compreensão dos modificadores de acesso na EVM; liberação de herança com `internal` e restrição de chamadas fora do contrato via `external`.
-    - **Objetivo:** Alterar a visibilidade de `_createZombie` de `private` para `internal` em `ZombieFactory`, permitindo que o contrato filho (`ZombieFeeding`) acesse a função para criar novos zumbis após a fusão de DNA.
-  - **Capítulo 10:** Comunicação Inter-Contratos & Interfaces (`KittyInterface`)
-    - **Conceito:** Abstração de contratos terceiros via Interfaces; assinatura de funções externas sem corpo de execução e suporte a múltiplos retornos em Solidity.
-    - **Objetivo:** Declarar a interface `KittyInterface` com a assinatura da função `getKitty` para permitir a leitura do genoma dos CryptoKitties na blockchain sem alterar o contrato de origem.
-  - **Capítulo 11:** Instanciação de Interfaces (`KittyInterface(ckAddress)`)
-    - **Conceito:** Associação do contrato-interface ao endereço físico (`address`) de um smart contract na rede Ethereum.
-    - **Objetivo:** Instanciar o objeto `kittyContract` passando a variável `ckAddress`, estabelecendo o ponteiro necessário para chamar métodos dos CryptoKitties.
-  - **Capítulo 12:** Lidando com Múltiplos Valores de Retorno
-    - **Conceito:** Manipulação e desestruturação de múltiplos valores retornados por uma função externa (tuplas), utilizando a sintaxe de vírgulas `(,,,,,,,,,val)` para ignorar os dados desnecessários na memória.
-    - **Objetivo:** Criar a função `feedOnKitty` para consultar os genes do CryptoKitty via `kittyContract.getKitty()` e repassar o resultado para `feedAndMultiply`.
-  - **Capítulo 13:** Bônus: Genes de Gatinho (Estruturas Condicionais & String Hashing)
-    - **Conceito:** Controle de fluxo com `if`, comparação de strings via hash Keccak-256 (`keccak256(abi.encodePacked(...))`) e manipulação aritmética de DNA com módulo (`%`).
-    - **Objetivo:** Atualizar a função `feedAndMultiply` para aceitar a string `_species`, verificar se a vítima é da espécie `"kitty"` e alterar os últimos 2 dígitos do DNA para `99`.
-
-- **Status:** Lição 2 Concluída! 🎉
-
----
+### 🖼️ Lesson 02: Zumbis Atacam Suas Vítimas
 
 #### Capítulo 2
 | Código Desenvolvido | Lição Concluída |
@@ -245,23 +161,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | ![Capítulo 14 Código](./assets/2_Chapter_14.png) | ![Capítulo 14 Concluído](./assets/2_Chapter_14_%20Wrapping_It_Up_Ok.png) |
 
 #### Capítulo 15
-| Código Desenvolvido | Liçao Concluída |
+| Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 15 Código](./assets/2_Chapter_15.png) | ![Capítulo 15 Concluído](./assets/2_Chapter_15_Licao_2_Concluida_Ok.png) |
 
 ---
 
----
-
-### 🧠 Lição 3: Conceitos Avançados de Solidity
-- **Tópicos:**
-  - **Capítulo 1:** Imutabilidade dos Contratos & Dependências Externas
-    - **Conceito:** Compreensão do caráter imutável dos contratos em blockchain e técnicas para evitar acoplamento rígido de endereços (*hardcoding*).
-    - **Objetivo:** Remover o endereço fixo do CryptoKitties e criar a função `setKittyContractAddress` para permitir atualizações dinâmicas da interface do contrato externo.
-
-- **Status:** Lição 3 Em Andamento ⏳
-
----
+### 🖼️ Lesson 03: Conceitos Avançados de Solidity
 
 #### Capítulo 1
 | Código Desenvolvido | Lição Concluída |
@@ -270,12 +176,22 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
+### Capítulo 2
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 2 Código](./assets/3_Chapter_2.png) | ![Capítulo 2 Concluído](./assets/3_Chapter_2_Ownable_Contracts_Ok.png) |
+
+---
+
 ## 🛡️ Notas de Auditoria & Segurança
 
 > **Relatório de Análise**
+
   **Lição 1 (Capítulos 8, 9, 11, 12 e 13)**
-  **Lição 2 (Capítulos 3, 4, 7, 8, 10, 11, 12 e 13 )** 
-  **Lição 3 (Capítulo 1)** 
+
+  **Lição 2 (Capítulos 3, 4, 5, 7, 8, 9, 10, 11, 12 e 13)**
+
+  **Lição 3 (Capítulos 1 e 2)**
 
 ### 1. Vulnerabilidade de Controle de Acesso (Capítulo 8) — ⚠️ IDENTIFICADO
 * **Falha:** Ausência de Controle de Acesso e Limitação de Frequência (*Unprotected Public Function / Lack of Rate Limiting*).
@@ -373,7 +289,7 @@ function createRandomZombie(string memory _name) public {
 }
 ```
 
-### 8. Arquitetura Modular e Superfície de Ataque por Herança
+### 8. Arquitetura Modular e Superfície de Ataque por Herança (Lição 2 - Capítulo 5)
 
 * **Vulnerabilidade / Risco:** ⚠️ Contratos extensos e monolíticos (*God Contracts*) dificultam a leitura e ocultam falhas críticas. Ao utilizar herança (`is`), o contrato filho passa a herdar todas as funções e variáveis do pai (`public` e `internal`), expandindo a superfície de ataque se a herança não for intencional ou bem mapeada.
 * **Mitigação / Boa Prática:** 🛡️ Modularizar o projeto dividindo a lógica em arquivos `.sol` independentes e realizar a importação via `import "./arquivo.sol";`. Isso isola responsabilidades, facilita a realização de testes unitários e simplifica o processo de auditoria.
@@ -519,6 +435,21 @@ function setKittyContractAddress(address _address) external {
   kittyContract = KittyInterface(_address);
 }
 
+```
+
+### 16. Controle de Acesso Administrativo via Modificador `onlyOwner` (Lição 3 - Capítulo 2) — 🟢 RESOLVIDO
+* **Status:** **Mitigado / Resolvido**
+* **Padrão Utilizado:** Padrão de Propriedade (*Ownable Pattern*) e Modificadores de Acesso.
+* **Análise Técnica:** Resolveu-se a vulnerabilidade crítica identificada no Capítulo 1 ao aplicar o modificador `onlyOwner` na função `setKittyContractAddress`. 
+* **Ganho de Segurança:**
+  - A execução da função agora exige que `msg.sender == owner()`.
+  - Tentativas de chamadas efetuadas por contas não autorizadas resultam em interrupção imediata da transação (*revert*), impedindo que atores maliciosos sequestrem o endereço da interface do CryptoKitties.
+
+```solidity
+// 🔒 CORRIGIDO (Capítulo 2): Apenas o proprietário do contrato pode atualizar o endereço
+function setKittyContractAddress(address _address) external onlyOwner {
+    kittyContract = KittyInterface(_address);
+}
 ```
 ---
 
