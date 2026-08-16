@@ -8,10 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Lição 3 — Capítulo 2 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 3
-- **Foco Atual:** Implementação do padrão de propriedade (*Ownable*) e restrição de funções críticas via modificadores de acesso (`onlyOwner`).
-
+- **Fase Atual:** Capítulo 3 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 4
+- **Foco Atual:** Aplicação do modificador de função `onlyOwner` para restrição de privilégios e proteção da função `setKittyContractAddress`.
 ---
 
 ## 📚 Navegação pelas Lições
@@ -180,6 +179,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 2 Código](./assets/3_Chapter_2.png) | ![Capítulo 2 Concluído](./assets/3_Chapter_2_Ownable_Contracts_Ok.png) |
+
+---
+
+### Capítulo 3
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 3 Código](./assets/3_Chapter_3.png) | ![Capítulo 3 Concluído](./assets/3_Chapter_3_OnlyOwner_Function_Modifier_Ok.png) |
 
 ---
 
@@ -451,6 +457,31 @@ function setKittyContractAddress(address _address) external onlyOwner {
     kittyContract = KittyInterface(_address);
 }
 ```
+---
+
+### 17. Restrição de Acesso em Contratos Herdados via Modificador `onlyOwner` (Lição 3 - Capítulo 3) — 🟢 RESOLVIDO
+* **Status:** **Mitigado / Resolvido**
+* **Padrão Utilizado:** Herança Encadeada e Modificadores de Acesso de Contratos Base.
+* **Análise Técnica:** Como o contrato `ZombieFeeding` herda de `ZombieFactory` (que herda de `Ownable`), aplicou-se o modificador `onlyOwner` diretamente na função de configuração do endereço externo no contrato derivado.
+* **Ganho de Segurança:**
+  - Garante que a propagação de permissões através da cadeia de herança (`ZombieFeeding is ZombieFactory` e `ZombieFactory is Ownable`) mantenha a restrição de acesso intacta.
+  - Impede a alteração não autorizada do contrato de interface `KittyInterface`, assegurando a integridade da comunicação inter-contratos na rede.
+
+```solidity
+// 🔒 CORRIGIDO (Capítulo 3): Acesso protegido via herança encadeada de Ownable
+function setKittyContractAddress(address _address) external onlyOwner {
+    kittyContract = KittyInterface(_address);
+}
+```
+
+### 🛡️ Notas de Arquitetura e Evolução da Linguagem (Solidity 0.5.x vs 0.7.x+)
+
+* **Hierarquia e Ordem de Construtores:** Durante o deploy do contrato principal (`ZombieFeeding`), a execução dos construtores ocorre da base para o topo da cadeia de herança (`Ownable` ➔ `ZombieFactory` ➔ `ZombieFeeding`). Isso garante que variáveis de estado críticas (como o `_owner`) sejam inicializadas na memória antes do processamento das regras de negócio derivadas.
+
+* **Evolução de Sintaxe no Construtor `internal`:**
+  - **Padrão do Projeto (Solidity 0.5.x):** O construtor do contrato base foi declarado como `constructor() internal` para impedir que o `Ownable` fosse implantado isoladamente na rede, forçando seu uso exclusivo via herança.
+  - **Padrão Moderno (Solidity 0.7.0+):** A visibilidade em construtores foi descontinuada. Em versões modernas, declara-se o contrato base com a palavra-chave `abstract` (ex: `abstract contract Ownable`), o que faz o próprio compilador proibir a instanciação direta e torna redundante o uso de modificadores de visibilidade no construtor.
+
 ---
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas

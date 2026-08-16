@@ -30,7 +30,7 @@ contract ZombieFeeding is ZombieFactory {
   KittyInterface kittyContract;
 
   // Função pública e externa que permite definir ou atualizar o endereço do contrato do CryptoKitties.
-  function setKittyContractAddress(address _address) external {
+  function setKittyContractAddress(address _address) external onlyOwner {
     // Converte o endereço informado (_address) em um tipo KittyInterface e o atribui à variável kittyContract.
     // Isso inicializa a ponte de comunicação apontando para o contrato real publicado na blockchain.
     kittyContract = KittyInterface(_address);
