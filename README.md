@@ -6,11 +6,11 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ---
 
-## 📌 Status do Projeto
+### 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 5 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 6
-- **Foco Atual:** Implementação de regras de tempo de recarga (*cooldown*) e manipulação de variáveis temporais (`cooldownTime` e `readyTime`).
+- **Fase Atual:** Capítulo 6 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 7
+- **Foco Atual:** Passagem de structs por referência (`storage`) e implementação do controle de tempo de recarga (`_triggerCooldown` e `_isReady`).
 
 ---
 
@@ -251,6 +251,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 5 Código](./assets/3_Chapter_5.png) | ![Capítulo 5 Concluído](./assets/3_Chapter_5_Time_Units_Ok.png) |
+
+---
+
+### Capítulo 6
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 6 Código](./assets/3_Chapter_6.png) | ![Capítulo 6 Concluído](./assets/3_Chapter_6_Zombie_Cooldowns_Ok.png) |
 
 ---
 
@@ -555,6 +562,10 @@ function setKittyContractAddress(address _address) external onlyOwner {
 * **Substituição da Variável Global `now` (Solidity 0.7.0+):**
   - **Padrão do Projeto (Solidity 0.5.x):** Utiliza-se a palavra-chave `now` para obter o timestamp Unix do bloco atual.
   - **Padrão Moderno (Solidity 0.7.0+):** A palavra `now` foi descontinuada (*deprecated*). Em versões modernas do Solidity, utiliza-se exclusivamente `block.timestamp` para garantir clareza explícita do contexto de execução.
+
+* **Passagem de Structs por Referência (`storage`) no Parâmetro de Funções:**
+  - **Funcionamento da EVM:** Passar uma `struct` com a palavra-chave `storage` como argumento de uma função `internal` cria uma referência de ponteiro direta para o dado persistido na blockchain. Isso evita cópias desnecessárias na memória e permite mutação direta nos campos (como `_zombie.readyTime`).
+  - **Evolução de Sintaxe (Solidity 0.7.0+ / 0.8.x+):** O uso do local de dados (`storage`, `memory` ou `calldata`) tornou-se **estritamente obrigatório** para todos os parâmetros de tipos estruturados/complexos (`structs`, `arrays`, `mappings`). Em versões modernas, omitir o local de dados em parâmetros gera erro de compilação.
 
 ---
 

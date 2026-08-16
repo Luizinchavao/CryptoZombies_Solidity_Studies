@@ -36,6 +36,18 @@ contract ZombieFeeding is ZombieFactory {
     kittyContract = KittyInterface(_address);
   }
 
+  // Função interna que atualiza o tempo de recarga (cooldown) do zumbi informado.
+  // Recebe a referência temporária 'storage' do zumbi para alterar seu estado na blockchain.
+  function _triggerCooldown(Zombie storage _zombie) internal {
+    _zombie.readyTime = uint32(now + cooldownTime);
+  }
+
+  // Função interna e de leitura ('view') que verifica se o zumbi já cumpriu o tempo de recarga.
+  // Retorna 'true' se o timestamp do tempo de recarga (_zombie.readyTime) for menor ou igual ao tempo atual (now).
+  function _isReady(Zombie storage _zombie) internal view returns (bool) {
+    return (_zombie.readyTime <= now);
+  }
+
   // Função principal que calcula a combinação de DNAs entre o zumbi e o alvo, gerando um novo zumbi.
   function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) public {
     // Trava de segurança: Garante que a carteira executando a transação (msg.sender) é a proprietária do zumbi informado.

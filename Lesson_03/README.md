@@ -39,3 +39,25 @@ uint cooldownTime = 1 days;
 
 // Criação da struct Zombie atualizada com os 4 parâmetros:
 uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
+
+```
+
+---
+
+### 🔹 Capítulo 6: Passando Structs como Argumentos e Funções de Cooldown
+* **Conceito:** Passagem de referências de estruturas (`Zombie storage _zombie`) em funções `internal`, permitindo tanto a mutação do estado no *storage* quanto a verificação de condições temporais (`now`).
+* **Objetivo:** Criar a função `_triggerCooldown` para atualizar o `readyTime` do zumbi e a função de checagem `_isReady` para validar se o tempo de espera de recarga já expirou.
+
+```solidity
+// Função interna que reseta e aplica o tempo de recarga (1 dia) ao zumbi
+function _triggerCooldown(Zombie storage _zombie) internal {
+  _zombie.readyTime = uint32(now + cooldownTime);
+}
+
+// Função interna de leitura que verifica se o tempo de recarga do zumbi já passou
+function _isReady(Zombie storage _zombie) internal view returns (bool) {
+  return (_zombie.readyTime <= now);
+}
+```
+
+---
