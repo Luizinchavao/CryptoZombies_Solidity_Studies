@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 3 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 4
-- **Foco Atual:** Aplicação do modificador de função `onlyOwner` para restrição de privilégios e proteção da função `setKittyContractAddress`.
+- **Fase Atual:** Capítulo 4 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 5
+- **Foco Atual:** Otimização de armazenamento e economia de gas via *Struct Packing* na declaração de dados da `struct Zombie`.
 ---
 
 ## 📚 Navegação pelas Lições
@@ -186,6 +186,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 3 Código](./assets/3_Chapter_3.png) | ![Capítulo 3 Concluído](./assets/3_Chapter_3_OnlyOwner_Function_Modifier_Ok.png) |
+
+---
+
+### Capítulo 4
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 4 Código](./assets/3_Chapter_4.png) | ![Capítulo 4 Concluído](./assets/3_Chapter_4_Gas_Ok.png) |
 
 ---
 
@@ -479,9 +486,13 @@ function setKittyContractAddress(address _address) external onlyOwner {
 * **Hierarquia e Ordem de Construtores:** Durante o deploy do contrato principal (`ZombieFeeding`), a execução dos construtores ocorre da base para o topo da cadeia de herança (`Ownable` ➔ `ZombieFactory` ➔ `ZombieFeeding`). Isso garante que variáveis de estado críticas (como o `_owner`) sejam inicializadas na memória antes do processamento das regras de negócio derivadas.
 
 * **Evolução de Sintaxe no Construtor `internal`:**
-  - **Padrão do Projeto (Solidity 0.5.x):** O construtor do contrato base foi declarado como `constructor() internal` para impedir que o `Ownable` fosse implantado isoladamente na rede, forçando seu uso exclusivo via herança.
+  - **Padrão do Projeto (Solidity 0.5.x):** O construtor do contrato base foi declared como `constructor() internal` para impedir que o `Ownable` fosse implantado isoladamente na rede, forçando seu uso exclusivo via herança.
   - **Padrão Moderno (Solidity 0.7.0+):** A visibilidade em construtores foi descontinuada. Em versões modernas, declara-se o contrato base com a palavra-chave `abstract` (ex: `abstract contract Ownable`), o que faz o próprio compilador proibir a instanciação direta e torna redundante o uso de modificadores de visibilidade no construtor.
 
+* **Alocação de Storage e Struct Packing na EVM:**
+  - **Funcionamento de Slots:** A EVM gerencia o *storage* em blocos fixos de 256 bits (32 bytes). Tipos menores (`uint32`, `uint8`, `bool`) só trazem vantagem financeira de gas quando declarados contiguamente dentro de `structs`, permitindo que o compilador os empacote no mesmo *slot*.
+  - **Uso Fora de Structs:** Declarar variáveis isoladas com tipos menores fora de *structs* não economiza gas; na verdade, pode aumentar o consumo, pois a EVM precisa aplicar operações adicionais de mascaramento para ajustar os dados ao tamanho nativo de 256 bits.
+  - **Compiladores Modernos (0.8.x+):** Embora compiladores recentes realizem otimizações avançadas, o empacotamento manual contíguo dentro de estruturas permanece como uma boa prática fundamental de arquitetura.
 ---
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas

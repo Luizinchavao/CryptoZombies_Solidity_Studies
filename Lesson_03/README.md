@@ -21,3 +21,9 @@
 ### 🔹 Capítulo 3: Modificador de Função `onlyOwner`
 * **Conceito:** Aplicação do modificador `onlyOwner` obtido via herança encadeada (`ZombieFeeding` -> `ZombieFactory` -> `Ownable`) para proteção e controle de acesso a funções administrativas sensíveis.
 * **Objetivo:** Adicionar o modificador `onlyOwner` na função `setKittyContractAddress`, corrigindo a vulnerabilidade de acesso público e garantindo que apenas o proprietário do contrato possa atualizar o endereço do contrato externo do CryptoKitties.
+
+---
+
+### 🔹 Capítulo 4: Gas e Otimização via *Struct Packing*
+* **Conceito:** Compreensão de como a EVM (Ethereum Virtual Machine) gerencia armazenamento em palavras de 256 bits e como o agrupamento de variáveis menores (*Struct Packing*) reduz significativamente os custos das operações de gravação permanente (`SSTORE` — a instrução de baixo nível da EVM para gravar dados no *storage*).
+* **Objetivo:** Adicionar os atributos contíguos `uint32 level` e `uint32 readyTime` na `struct Zombie` do contrato `ZombieFactory`, permitindo que o compilador empacote ambos os dados no mesmo *slot* de memória para economizar gas na criação e atualização de zumbis.

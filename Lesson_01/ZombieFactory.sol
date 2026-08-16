@@ -5,8 +5,8 @@ pragma solidity >=0.5.0 <0.6.0;
 // Importa o arquivo externo 'ownable.sol', permitindo reutilizar o contrato Ownable que gerencia permissões de proprietário do contrato.
 import "./ownable.sol";
 
-// Declaração do contrato 'ZumbieFactory' que herda ('is') todas as variáveis, funções e modificadores do contrato 'Ownable'.
-contract ZumbieFactory is Ownable {
+// Declaração do contrato 'ZombieFactory' que herda ('is') todas as variáveis, funções e modificadores do contrato 'Ownable'.
+contract ZombieFactory is Ownable {
 
     // Evento emitido sempre que um novo zumbi é criado na blockchain.
     // Permite que aplicativos externos (front-end) escutem a criação do zumbi.
@@ -18,10 +18,15 @@ contract ZumbieFactory is Ownable {
     // Modulador usado para garantir que o DNA tenha exatamente 16 dígitos (10^16).
     uint dnaModulus = 10 ** dnaDigits;
 
-    // Estrutura de dados que define o que é um Zumbi (nome e DNA).
+    // Estrutura de dados que define o que é um Zumbi (nome, DNA, nível e tempo de recarga).
+    // 💡 OTIMIZADO: Struct Packing para economia de gas no storage
+    // Ao declarar uint32 para level e readyTime lado a lado, a EVM empacota
+    // ambos os dados no mesmo slot de memória (32 bytes), reduzindo custos de SSTORE.
     struct Zombie {
-        string name; // Nome do zumbi.
-        uint dna;    // Código genético/DNA do zumbi.
+        string name;
+        uint dna;
+        uint32 level;     // Nível do zumbi (32 bits)
+        uint32 readyTime; // Timestamp para o tempo de recarga / cooldown (32 bits)
     }
 
     // Array público que armazena a lista de todos os zumbis criados no contrato.
@@ -58,7 +63,7 @@ contract ZumbieFactory is Ownable {
     }
 
     // Função pública que permite criar um zumbi aleatório informando apenas o nome.
-    function creatRandomZombie(string memory _name) public {
+    function createRandomZombie(string memory _name) public {
         // Exige que a carteira que está chamando a função não possua nenhum zumbi (somente 1 zumbi inicial por conta).
         require(ownerZombieCount[msg.sender] == 0);
 
