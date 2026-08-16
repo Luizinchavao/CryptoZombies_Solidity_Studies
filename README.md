@@ -8,9 +8,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 4 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 5
-- **Foco Atual:** Otimização de armazenamento e economia de gas via *Struct Packing* na declaração de dados da `struct Zombie`.
+- **Fase Atual:** Capítulo 5 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 6
+- **Foco Atual:** Implementação de regras de tempo de recarga (*cooldown*) e manipulação de variáveis temporais (`cooldownTime` e `readyTime`).
+
 ---
 
 ## 📚 Navegação pelas Lições
@@ -30,60 +31,84 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 2 Código](./assets/Chapter_2.png) | ![Capítulo 2 Concluído](./assets/Chapter_2_Contracts_Ok.png) |
 
+---
+
 #### Capítulo 3
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 3 Código](./assets/Chapter_3.png) | ![Capítulo 3 Concluído](./assets/Chapter_3_State_Variables_&_Integers_Ok.png) |
+
+---
 
 #### Capítulo 4
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 4 Código](./assets/Chapter_4.png) | ![Capítulo 4 Concluído](./assets/Chapter_4_Math_Operations_Ok.png) |
 
+---
+
 #### Capítulo 5
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 5 Código](./assets/Chapter_5.png) | ![Capítulo 5 Concluído](./assets/Chapter_5_Structs_Ok.png) |
+
+---
 
 #### Capítulo 6
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 6 Código](./assets/Chapter_6.png) | ![Capítulo 6 Concluído](./assets/Chapter_6_Arrays_Ok.png) |
 
+---
+
 #### Capítulo 7
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 7 Código](./assets/Chapter_7.png) | ![Capítulo 7 Concluído](./assets/Chapter_7_Function_Declarations_Ok.png) |
+
+---
 
 #### Capítulo 8
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 8 Código](./assets/Chapter_8.png) | ![Capítulo 8 Concluído](./assets/Chapter_8_Working_With_Structs_And_Arrays_Ok.png) |
 
+---
+
 #### Capítulo 9
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 9 Código](./assets/Chapter_9.png) | ![Capítulo 9 Concluído](./assets/Chapter_9_Privete_Public_Funtions_Ok.png) |
+
+---
 
 #### Capítulo 10
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 10 Código](./assets/Chapter_10.png) | ![Capítulo 10 Concluído](./assets/Chapter_10_More_On_Functions_Ok.png) |
 
+---
+
 #### Capítulo 11
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 11 Código](./assets/Chapter_11.png) | ![Capítulo 11 Concluído](./assets/Chapter_11_Keccak256_And_Typecasting_Ok.png) |
+
+---
 
 #### Capítulo 12
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 12 Código](./assets/Chapter_12.png) | ![Capítulo 12 Concluído](./assets/Chapter_12_Putting_It_Together_Ok.png) |
 
+---
+
 #### Capítulo 13
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 13 Código](./assets/Chapter_13.png) | ![Capítulo 13 Concluído](./assets/Chapter_13_Events_Ok.png) |
+
+---
 
 #### Capítulo 14
 | Código Desenvolvido | Lição Concluída |
@@ -99,65 +124,91 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | :---: | :---: |
 | ![Capítulo 2 Código](./assets/2_Chapter_2.png) | ![Capítulo 2 Concluído](./assets/2_Chapter_2_Mappings_And_Addresses_Ok.png) |
 
+---
+
 #### Capítulo 3
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 3 Código](./assets/2_Chapter_3.png) | ![Capítulo 3 Concluído](./assets/2_Chapter_3_Msg_Sender_Ok.png) |
+
+---
 
 #### Capítulo 4
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 4 Código](./assets/2_Chapter_4.png) | ![Capítulo 4 Concluído](./assets/2_Chapter_4_Require_Ok.png) |
 
+---
+
 #### Capítulo 5
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 5 Código](./assets/2_Chapter_5.png) | ![Capítulo 5 Concluído](./assets/2_Chapter_5_Inheritance_Ok.png) |
+
+---
 
 #### Capítulo 6
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 6 Código](./assets/2_Chapter_6.png) | ![Capítulo 6 Concluído](./assets/2_Chapter_6_Import_Ok.png) |
 
+---
+
 #### Capítulo 7
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 7 Código](./assets/2_Chapter_7.png) | ![Capítulo 7 Concluído](./assets/2_Chapter_7_Storage_Vs_Memory_Data_Location_Ok.png) |
+
+---
 
 #### Capítulo 8 
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 8 Código](./assets/2_Chapter_8.png) | ![Capítulo 8 Concluído](./assets/2_Chapter_8_Zombie_DNA.png) |
 
+---
+
 #### Capítulo 9
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 9 Código](./assets/2_Chapter_9.png) | ![Capítulo 9 Concluído](./assets/2_Chapter_9_More_On_Function_Visibility_Ok.png) |
+
+---
 
 #### Capítulo 10
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 10 Código](./assets/2_Chapter_10.png) | ![Capítulo 10 Concluído](./assets/2_Chapter_10_What_Do_Zombies_Eat_Ok.png) |
 
+---
+
 #### Capítulo 11
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 11 Código](./assets/2_Chapter_11.png) | ![Capítulo 11 Concluído](./assets/2_Chapter_11_Using_An_Interface_Ok.png) |
+
+---
 
 #### Capítulo 12
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 12 Código](./assets/2_Chapter_12.png) | ![Capítulo 12 Concluído](./assets/2_Chapter_12_Handling_Multiple_Return_Values_Ok.png) |
 
+---
+
 #### Capítulo 13
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 13 Código](./assets/2_Chapter_13.png) | ![Capítulo 13 Concluído](./assets/2_Chapter_13_Bonus_Kitty_Genes_Ok.png) |
 
+---
+
 #### Capítulo 14
 | Código Desenvolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 14 Código](./assets/2_Chapter_14.png) | ![Capítulo 14 Concluído](./assets/2_Chapter_14_%20Wrapping_It_Up_Ok.png) |
+
+---
 
 #### Capítulo 15
 | Código Desenvolvido | Lição Concluída |
@@ -193,6 +244,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 4 Código](./assets/3_Chapter_4.png) | ![Capítulo 4 Concluído](./assets/3_Chapter_4_Gas_Ok.png) |
+
+---
+
+### Capítulo 5
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 5 Código](./assets/3_Chapter_5.png) | ![Capítulo 5 Concluído](./assets/3_Chapter_5_Time_Units_Ok.png) |
 
 ---
 
@@ -486,13 +544,18 @@ function setKittyContractAddress(address _address) external onlyOwner {
 * **Hierarquia e Ordem de Construtores:** Durante o deploy do contrato principal (`ZombieFeeding`), a execução dos construtores ocorre da base para o topo da cadeia de herança (`Ownable` ➔ `ZombieFactory` ➔ `ZombieFeeding`). Isso garante que variáveis de estado críticas (como o `_owner`) sejam inicializadas na memória antes do processamento das regras de negócio derivadas.
 
 * **Evolução de Sintaxe no Construtor `internal`:**
-  - **Padrão do Projeto (Solidity 0.5.x):** O construtor do contrato base foi declared como `constructor() internal` para impedir que o `Ownable` fosse implantado isoladamente na rede, forçando seu uso exclusivo via herança.
+  - **Padrão do Projeto (Solidity 0.5.x):** O construtor do contrato base foi declarado como `constructor() internal` para impedir que o `Ownable` fosse implantado isoladamente na rede, forçando seu uso exclusivo via herança.
   - **Padrão Moderno (Solidity 0.7.0+):** A visibilidade em construtores foi descontinuada. Em versões modernas, declara-se o contrato base com a palavra-chave `abstract` (ex: `abstract contract Ownable`), o que faz o próprio compilador proibir a instanciação direta e torna redundante o uso de modificadores de visibilidade no construtor.
 
 * **Alocação de Storage e Struct Packing na EVM:**
   - **Funcionamento de Slots:** A EVM gerencia o *storage* em blocos fixos de 256 bits (32 bytes). Tipos menores (`uint32`, `uint8`, `bool`) só trazem vantagem financeira de gas quando declarados contiguamente dentro de `structs`, permitindo que o compilador os empacote no mesmo *slot*.
   - **Uso Fora de Structs:** Declarar variáveis isoladas com tipos menores fora de *structs* não economiza gas; na verdade, pode aumentar o consumo, pois a EVM precisa aplicar operações adicionais de mascaramento para ajustar os dados ao tamanho nativo de 256 bits.
   - **Compiladores Modernos (0.8.x+):** Embora compiladores recentes realizem otimizações avançadas, o empacotamento manual contíguo dentro de estruturas permanece como uma boa prática fundamental de arquitetura.
+
+* **Substituição da Variável Global `now` (Solidity 0.7.0+):**
+  - **Padrão do Projeto (Solidity 0.5.x):** Utiliza-se a palavra-chave `now` para obter o timestamp Unix do bloco atual.
+  - **Padrão Moderno (Solidity 0.7.0+):** A palavra `now` foi descontinuada (*deprecated*). Em versões modernas do Solidity, utiliza-se exclusivamente `block.timestamp` para garantir clareza explícita do contexto de execução.
+
 ---
 
 ## 🛠️ Tecnologias & Ferramentas Utilizadas

@@ -27,3 +27,15 @@
 ### 🔹 Capítulo 4: Gas e Otimização via *Struct Packing*
 * **Conceito:** Compreensão de como a EVM (Ethereum Virtual Machine) gerencia armazenamento em palavras de 256 bits e como o agrupamento de variáveis menores (*Struct Packing*) reduz significativamente os custos das operações de gravação permanente (`SSTORE` — a instrução de baixo nível da EVM para gravar dados no *storage*).
 * **Objetivo:** Adicionar os atributos contíguos `uint32 level` e `uint32 readyTime` na `struct Zombie` do contrato `ZombieFactory`, permitindo que o compilador empacote ambos os dados no mesmo *slot* de memória para economizar gas na criação e atualização de zumbis.
+
+---
+
+### 🔹 Capítulo 5: Unidades de Tempo e Cooldowns
+* **Conceito:** Manipulação de tempo nativa no Solidity utilizando unidades temporais (`days`, `hours`, `seconds`) e a variável global `now` (Unix Timestamp atual do bloco).
+* **Objetivo:** Declarar a variável `cooldownTime = 1 days` e atualizar a chamada de instanciação da struct na função `_createZombie` para incluir o nível inicial (`1`) e o tempo de recarga (`uint32(now + cooldownTime)`).
+
+```solidity
+uint cooldownTime = 1 days;
+
+// Criação da struct Zombie atualizada com os 4 parâmetros:
+uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
