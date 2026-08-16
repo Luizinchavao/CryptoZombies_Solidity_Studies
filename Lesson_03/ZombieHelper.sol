@@ -31,4 +31,11 @@ contract ZombieHelper is ZombieFeeding {
     zombies[_zombieId].dna = _newDna;
   }
 
+ 
+  // Declara a função de consulta 'getZombiesByOwner' para retornar todos os IDs de zumbis pertencentes ao endereço informado.
+  // Usa o modificador 'view' (sem custo de gas em chamadas externas) e aloca dinamicamente na memória ('memory') um array temporário com o tamanho exato indicado por 'ownerZombieCount[_owner]'.
+  function getZombiesByOwner(address _owner) external view returns (uint[] memory) {
+
+  }
+
 }

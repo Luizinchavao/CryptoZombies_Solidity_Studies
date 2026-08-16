@@ -8,9 +8,9 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 9 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 10
-- **Foco Atual:** Aplicação do modificador `aboveLevel` nas funções `changeName` e `changeDna` no contrato `ZombieHelper`
+- **Fase Atual:** Capítulo 10 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 11
+- **Foco Atual:** Declaração da função `getZombiesByOwner` e alocação dinâmica do array temporário em `memory`.
 ---
 
 ## 📚 Navegação pelas Lições
@@ -278,6 +278,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 9 Código](./assets/3_Chapter_9.png) | ![Capítulo 9 Concluído](./assets/3_Chapter_9_Zombie_Modifiers_Ok.png) |
+
+---
+
+### Capítulo 10
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 10 Código](./assets/3_Chapter_10.png) | ![Capítulo 10 Concluído](./assets/2_Chapter_11_Using_An_Interface_Ok.png) |
 
 ---
 

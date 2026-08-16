@@ -112,3 +112,16 @@ function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombie
 
 ---
 
+### 🔹 Capítulo 10: Economizando Gas com Funções de Leitura (`view`) e Arrays em Memória
+* **Conceito:** Utilização do modificador `view` para garantir execução sem custo de gas em chamadas externas e alocação dinâmica de arrays temporários em memória com a sintaxe `new uint[](tamanho)`.
+* **Objetivo:** Declarar o cabeçalho da função `getZombiesByOwner(address _owner)` no contrato `ZombieHelper` e alocar o array `result` na memória com o tamanho exato de `ownerZombieCount[_owner]`.
+
+```solidity
+// Alocação de array em memória e retorno de consulta 'view'
+function getZombiesByOwner(address _owner) external view returns (uint[] memory) {
+  uint[] memory result = new uint[](ownerZombieCount[_owner]);
+  return result;
+}
+```
+
+---
