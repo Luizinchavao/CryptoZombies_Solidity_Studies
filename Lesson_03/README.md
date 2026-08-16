@@ -119,9 +119,21 @@ function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombie
 ```solidity
 // Alocação de array em memória e retorno de consulta 'view'
 function getZombiesByOwner(address _owner) external view returns (uint[] memory) {
-  uint[] memory result = new uint[](ownerZombieCount[_owner]);
-  return result;
-}
+  
+  }
+```
+
+---
+
+### 🔹 Capítulo 11: Arrays em Memória (`memory`) e Retorno de Dados
+* **Conceito:** Criação de arrays dinâmicos mantidos temporariamente na memória usando a sintaxe `new uint[](tamanho)` e retornos em funções de consulta (`view`).
+* **Objetivo:** Instanciar o array `result` na memória com o tamanho exato de `ownerZombieCount[_owner]` e definir o retorno da função `getZombiesByOwner`.
+
+```solidity
+// Alocação do array temporário em memória e retorno da consulta
+uint[] memory result = new uint[](ownerZombieCount[_owner]);
+return result;
+
 ```
 
 ---

@@ -33,9 +33,13 @@ contract ZombieHelper is ZombieFeeding {
 
  
   // Declara a função de consulta 'getZombiesByOwner' para retornar todos os IDs de zumbis pertencentes ao endereço informado.
-  // Usa o modificador 'view' (sem custo de gas em chamadas externas) e aloca dinamicamente na memória ('memory') um array temporário com o tamanho exato indicado por 'ownerZombieCount[_owner]'.
+  // Usa o modificador 'view' (sem custo de gas em chamadas externas) e retorna um array dinâmico de inteiros (IDs dos zumbis).
   function getZombiesByOwner(address _owner) external view returns (uint[] memory) {
-
+    // Aloca dinamicamente na memória ('memory') um array temporário de inteiros 'result' com o tamanho exato de zumbis indicados por 'ownerZombieCount[_owner]'.
+    uint[] memory result = new uint[](ownerZombieCount[_owner]);
+    // Retorna o array temporário com os dados da consulta.
+    return result;
+  
   }
 
 }

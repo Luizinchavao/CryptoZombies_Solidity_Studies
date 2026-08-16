@@ -8,9 +8,10 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 
 ## 📌 Status do Projeto
 
-- **Fase Atual:** Capítulo 10 da Lição 3 concluído 🏁
-- **Status:** 🟡 Em andamento / Transição para o Capítulo 11
-- **Foco Atual:** Declaração da função `getZombiesByOwner` e alocação dinâmica do array temporário em `memory`.
+- **Fase Atual:** Capítulo 11 da Lição 3 concluído 🏁
+- **Status:** 🟡 Em andamento / Transição para o Capítulo 12
+- **Foco Atual:** Alocação de arrays dinâmicos em memória (`memory`) e retorno de dados na função `getZombiesByOwner`.
+---
 ---
 
 ## 📚 Navegação pelas Lições
@@ -285,6 +286,13 @@ Acompanhando o curso interativo **CryptoZombies** juntamente com as aulas e live
 | Código Desenolvido | Lição Concluída |
 | :---: | :---: |
 | ![Capítulo 10 Código](./assets/3_Chapter_10.png) | ![Capítulo 10 Concluído](./assets/2_Chapter_11_Using_An_Interface_Ok.png) |
+
+---
+
+### Capítulo 11
+| Código Desenolvido | Lição Concluída |
+| :---: | :---: |
+| ![Capítulo 11 Código](./assets/3_Chapter_11.png) | ![Capítulo 11 Concluído](./assets/3_Chapter_11_Storage_Is_Expensive_Ok.png) |
 
 ---
 
